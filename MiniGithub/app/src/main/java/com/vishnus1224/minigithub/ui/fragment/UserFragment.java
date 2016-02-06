@@ -23,7 +23,7 @@ public class UserFragment extends BaseFragment {
     }
 
     @Override
-    public void fetchData() {
+    public void fetchData(String searchKeyword) {
 
     }
 }

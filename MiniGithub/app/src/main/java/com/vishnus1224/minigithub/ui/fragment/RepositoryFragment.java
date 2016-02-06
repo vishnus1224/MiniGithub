@@ -59,7 +59,7 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
     }
 
     @Override
-    public void fetchData() {
+    public void fetchData(String searchKeyword) {
 
     }
 

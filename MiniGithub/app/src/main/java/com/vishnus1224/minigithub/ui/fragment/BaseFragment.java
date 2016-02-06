@@ -12,7 +12,7 @@ import android.view.ViewGroup;
  */
 public abstract class BaseFragment extends Fragment {
 
-    public abstract void fetchData();
+    public abstract void fetchData(String searchKeyword);
 
     @Nullable
     @Override
