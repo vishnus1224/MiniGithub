@@ -7,9 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vishnus1224.minigithub.R;
+import com.vishnus1224.minigithub.model.Repository;
 import com.vishnus1224.minigithub.ui.presenter.Presenter;
 import com.vishnus1224.minigithub.ui.presenter.RepositoryPresenter;
 import com.vishnus1224.minigithub.ui.view.RepositoryView;
+
+import java.util.List;
 
 /**
  * Created by Vishnu on 2/6/2016.
@@ -75,6 +78,11 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
 
     @Override
     public void showError(String message) {
+
+    }
+
+    @Override
+    public void showRepositories(List<Repository> repositoryList) {
 
     }
 }
