@@ -11,13 +11,13 @@ import com.vishnus1224.minigithub.R;
 /**
  * Created by Vishnu on 2/6/2016.
  */
-public class RepositoriesFragment extends BaseFragment {
+public class IssueFragment extends BaseFragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_repositories, container, false);
+        View view = inflater.inflate(R.layout.fragment_issue, container, false);
 
         return view;
     }

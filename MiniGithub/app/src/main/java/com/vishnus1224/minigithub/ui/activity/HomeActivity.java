@@ -11,9 +11,9 @@ import com.vishnus1224.minigithub.generator.FragmentGenerator;
 import com.vishnus1224.minigithub.ui.adapter.MainTabsPagerAdapter;
 import com.vishnus1224.minigithub.ui.fragment.BaseFragment;
 import com.vishnus1224.minigithub.ui.fragment.CodeFragment;
-import com.vishnus1224.minigithub.ui.fragment.IssuesFragment;
-import com.vishnus1224.minigithub.ui.fragment.RepositoriesFragment;
-import com.vishnus1224.minigithub.ui.fragment.UsersFragment;
+import com.vishnus1224.minigithub.ui.fragment.IssueFragment;
+import com.vishnus1224.minigithub.ui.fragment.RepositoryFragment;
+import com.vishnus1224.minigithub.ui.fragment.UserFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,13 +85,13 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
 
         List<Fragment> fragments = new ArrayList<>();
 
-        fragments.add(FragmentGenerator.generateFragment(RepositoriesFragment.class));
+        fragments.add(FragmentGenerator.generateFragment(RepositoryFragment.class));
 
         fragments.add(FragmentGenerator.generateFragment(CodeFragment.class));
 
-        fragments.add(FragmentGenerator.generateFragment(IssuesFragment.class));
+        fragments.add(FragmentGenerator.generateFragment(IssueFragment.class));
 
-        fragments.add(FragmentGenerator.generateFragment(UsersFragment.class));
+        fragments.add(FragmentGenerator.generateFragment(UserFragment.class));
 
         return fragments;
 
