@@ -9,6 +9,7 @@ import com.vishnus1224.minigithub.R;
 import com.vishnus1224.minigithub.config.TabConfig;
 import com.vishnus1224.minigithub.generator.FragmentGenerator;
 import com.vishnus1224.minigithub.ui.adapter.MainTabsPagerAdapter;
+import com.vishnus1224.minigithub.ui.fragment.BaseFragment;
 import com.vishnus1224.minigithub.ui.fragment.CodeFragment;
 import com.vishnus1224.minigithub.ui.fragment.IssuesFragment;
 import com.vishnus1224.minigithub.ui.fragment.RepositoriesFragment;
@@ -71,6 +72,12 @@ public class HomeActivity extends BaseActivity {
         homeTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+
+                int tabIndex = tab.getPosition();
+
+                BaseFragment fragment = (BaseFragment) mainTabsPagerAdapter.getItem(tabIndex);
+
+                fragment.fetchData();
 
             }
 
