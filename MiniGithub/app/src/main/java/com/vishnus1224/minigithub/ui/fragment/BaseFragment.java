@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 /**
  * Created by Vishnu on 2/6/2016.
  */
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
+
+    public abstract void fetchData();
 
     @Nullable
     @Override
