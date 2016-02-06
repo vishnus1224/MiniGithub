@@ -27,7 +27,7 @@ public class MainTabsPagerAdapter extends FragmentStatePagerAdapter {
 
             //throw an exception if the fragment list is null or empty.
             if(pagerFragments == null || pagerFragments.isEmpty()) {
-                throw new IllegalStateException(numberOfPages + "must have " + numberOfPages + " fragments to display the content");
+                throw new IllegalStateException(numberOfPages + " pages must have " + numberOfPages + " fragments to display the content");
             }
 
             int titlesLength = pageTitles.length;
