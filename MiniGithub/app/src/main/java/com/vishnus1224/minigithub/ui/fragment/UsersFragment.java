@@ -12,7 +12,7 @@ import com.vishnus1224.minigithub.R;
 /**
  * Created by Vishnu on 2/6/2016.
  */
-public class UsersFragment extends Fragment {
+public class UsersFragment extends BaseFragment {
 
     @Nullable
     @Override
@@ -21,5 +21,10 @@ public class UsersFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_users, container, false);
 
         return view;
+    }
+
+    @Override
+    public void fetchData() {
+
     }
 }

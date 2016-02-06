@@ -21,4 +21,9 @@ public class RepositoriesFragment extends BaseFragment {
 
         return view;
     }
+
+    @Override
+    public void fetchData() {
+
+    }
 }

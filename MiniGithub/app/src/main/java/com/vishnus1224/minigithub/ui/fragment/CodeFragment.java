@@ -21,4 +21,9 @@ public class CodeFragment extends BaseFragment {
 
         return view;
     }
+
+    @Override
+    public void fetchData() {
+
+    }
 }

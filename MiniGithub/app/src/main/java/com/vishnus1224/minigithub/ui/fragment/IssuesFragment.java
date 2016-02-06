@@ -21,4 +21,9 @@ public class IssuesFragment extends BaseFragment {
 
         return view;
     }
+
+    @Override
+    public void fetchData() {
+
+    }
 }
