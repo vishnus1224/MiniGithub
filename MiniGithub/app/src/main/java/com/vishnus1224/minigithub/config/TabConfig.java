@@ -2,6 +2,12 @@ package com.vishnus1224.minigithub.config;
 
 import android.support.v4.app.Fragment;
 
+import com.vishnus1224.minigithub.generator.FragmentGenerator;
+import com.vishnus1224.minigithub.ui.fragment.CodeFragment;
+import com.vishnus1224.minigithub.ui.fragment.IssuesFragment;
+import com.vishnus1224.minigithub.ui.fragment.RepositoriesFragment;
+import com.vishnus1224.minigithub.ui.fragment.UsersFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +22,10 @@ public final class TabConfig {
 
     }
 
+    //Total number of tabs.
     public static final int NUMBER_OF_TABS = 4;
 
+    //Names for the tabs.
     public static final String[] tabNames = new String[]{
             "Repositories", "Code", "Issues", "Users"
     };
@@ -31,7 +39,13 @@ public final class TabConfig {
 
         List<Fragment> fragments = new ArrayList<>();
 
+        fragments.add(FragmentGenerator.generateFragment(RepositoriesFragment.class));
 
+        fragments.add(FragmentGenerator.generateFragment(CodeFragment.class));
+
+        fragments.add(FragmentGenerator.generateFragment(IssuesFragment.class));
+
+        fragments.add(FragmentGenerator.generateFragment(UsersFragment.class));
 
         return fragments;
     }
