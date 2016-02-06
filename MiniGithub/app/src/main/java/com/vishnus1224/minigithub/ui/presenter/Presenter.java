@@ -1,5 +1,7 @@
 package com.vishnus1224.minigithub.ui.presenter;
 
+import com.vishnus1224.minigithub.ui.view.BaseView;
+
 /**
  * Created by Vishnu on 2/6/2016.
  */
@@ -8,7 +10,7 @@ public interface Presenter {
     /**
      * Initialization for the presenter.
      */
-    void init();
+    void init(BaseView view);
 
     /**
      * Resume operations in the presenter. Called in the onResume method of the concrete implementation.
