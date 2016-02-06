@@ -18,7 +18,7 @@ import com.vishnus1224.minigithub.ui.fragment.UsersFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelectedListener {
 
     private TabLayout homeTabLayout;
 
@@ -66,33 +66,16 @@ public class HomeActivity extends BaseActivity {
 
     }
 
-    //set a listener to handle selection of tabs.
     private void setTabListener() {
 
-        homeTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
+        //set a listener on the tab to detect clicks.
+        homeTabLayout.setOnTabSelectedListener(this);
 
-                int tabIndex = tab.getPosition();
-
-                BaseFragment fragment = (BaseFragment) mainTabsPagerAdapter.getItem(tabIndex);
-
-                fragment.fetchData();
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+        //set the 1st tab as the default one.
+        onTabSelected(homeTabLayout.getTabAt(0));
 
     }
+
 
     /**
      * Get the fragments required for setting up the tabs using the fragment generator.
@@ -114,4 +97,25 @@ public class HomeActivity extends BaseActivity {
 
 
     }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+
+        int tabIndex = tab.getPosition();
+
+        BaseFragment fragment = (BaseFragment) mainTabsPagerAdapter.getItem(tabIndex);
+
+        fragment.fetchData();
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
+
 }
