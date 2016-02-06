@@ -35,6 +35,8 @@ public class HomeActivity extends BaseActivity {
 
         setupTabs();
 
+        setTabListener();
+
     }
 
     private void setupViews() {
@@ -60,6 +62,28 @@ public class HomeActivity extends BaseActivity {
 
         //setup the tab using the contents of the view pager.
         homeTabLayout.setupWithViewPager(homeTabViewPager);
+
+    }
+
+    //set a listener to handle selection of tabs.
+    private void setTabListener() {
+
+        homeTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
     }
 
