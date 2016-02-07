@@ -12,4 +12,8 @@ public interface RepositoryView extends BaseView {
     //update the ui using the list of repositories provided.
     void showRepositories(List<Repository> repositoryList);
 
+    void hideNoContentView();
+
+    void showNoContentView();
+
 }

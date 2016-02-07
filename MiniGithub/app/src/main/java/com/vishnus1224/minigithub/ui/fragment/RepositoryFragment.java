@@ -110,4 +110,14 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
     public void showRepositories(List<Repository> repositoryList) {
 
     }
+
+    @Override
+    public void hideNoContentView() {
+        
+    }
+
+    @Override
+    public void showNoContentView() {
+
+    }
 }
