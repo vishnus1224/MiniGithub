@@ -1,9 +1,15 @@
 package com.vishnus1224.minigithub.ui.activity;
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.widget.SearchView;
 
 import com.vishnus1224.minigithub.R;
 import com.vishnus1224.minigithub.config.TabConfig;
@@ -38,6 +44,15 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
 
         setTabListener();
 
+        handleSearchIntent(getIntent());
+
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        handleSearchIntent(intent);
     }
 
     private void setupViews() {
@@ -77,6 +92,18 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
     }
 
 
+    private void handleSearchIntent(Intent intent) {
+
+        //check to see if the search button was clicked.
+        if(Intent.ACTION_SEARCH.equals(intent.getAction())){
+
+            //get the keyword entered by the user.
+            String keyword = intent.getStringExtra(SearchManager.QUERY);
+        }
+
+    }
+
+
     /**
      * Get the fragments required for setting up the tabs using the fragment generator.
      * @return List of fragments.
@@ -105,7 +132,7 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
 
         BaseFragment fragment = (BaseFragment) mainTabsPagerAdapter.getItem(tabIndex);
 
-        fragment.fetchData();
+        fragment.fetchData(null);
     }
 
     @Override
@@ -118,4 +145,20 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+
+        menuInflater.inflate(R.menu.home_menu, menu);
+
+        //Associate the searchable info with the search view.
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
+        SearchView searchView = (SearchView) menu.findItem(R.id.homeActionSearch).getActionView();
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        return true;
+    }
 }
