@@ -117,7 +117,7 @@ public class RepositoryPresenter implements Presenter {
     }
 
 
-    private RepositoryInteractor.RepositoryInteractionListener repositoryInteractionListener = new RepositoryInteractor.RepositoryInteractionListener() {
+    private final RepositoryInteractor.RepositoryInteractionListener repositoryInteractionListener = new RepositoryInteractor.RepositoryInteractionListener() {
         @Override
         public void onSuccess(List<Repository> repositoryList) {
 
