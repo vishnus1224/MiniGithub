@@ -52,6 +52,12 @@ public class RepositoryPresenter implements Presenter {
 
         }
 
+        if(searchInProgress){
+
+            view.showProgress();
+
+        }
+
     }
 
     @Override
