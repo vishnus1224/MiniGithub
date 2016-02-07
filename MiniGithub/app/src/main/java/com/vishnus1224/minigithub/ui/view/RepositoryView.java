@@ -16,7 +16,4 @@ public interface RepositoryView extends BaseView {
 
     void showNoContentView();
 
-    //for notifying the view that all repositories have been fetched and there are no more results.
-    void noMoreRepositories();
-
 }
