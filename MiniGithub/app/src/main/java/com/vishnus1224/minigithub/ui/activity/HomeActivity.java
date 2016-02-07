@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.SearchView;
@@ -33,6 +34,9 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
 
     private SearchView searchView;
 
+    //Index of the currently selected tab.
+    private int selectedTabIndex = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +48,9 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
 
         setupTabs();
 
-        setTabListener();
-
         handleSearchIntent(getIntent());
+
+        setTabListener();
 
     }
 
@@ -106,9 +110,6 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
         //set a listener on the tab to detect clicks.
         homeTabLayout.setOnTabSelectedListener(this);
 
-        //set the 1st tab as the default one.
-        onTabSelected(homeTabLayout.getTabAt(0));
-
     }
 
 
@@ -119,8 +120,26 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
 
             //get the keyword entered by the user.
             String keyword = intent.getStringExtra(SearchManager.QUERY);
+
+            if(!TextUtils.isEmpty(keyword)){
+
+                loadDataInFragment(keyword);
+
+            }
         }
 
+    }
+
+
+    /**
+     * Gets the fragment at the selected tab position and loads the data.
+     * @param searchQuery The search query entered by the user.
+     */
+    private void loadDataInFragment(String searchQuery) {
+
+        BaseFragment fragment = (BaseFragment) mainTabsPagerAdapter.getItem(selectedTabIndex);
+
+        fragment.fetchData(searchQuery);
     }
 
 
@@ -148,11 +167,21 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
 
-        int tabIndex = tab.getPosition();
+        selectedTabIndex = tab.getPosition();
 
-        BaseFragment fragment = (BaseFragment) mainTabsPagerAdapter.getItem(tabIndex);
+        if(searchView != null) {
 
-        fragment.fetchData(null);
+            //Get the search query from the search view.
+            String searchQuery = searchView.getQuery().toString();
+
+            //if the search query is not null then tell the fragment to load data.
+            if (!TextUtils.isEmpty(searchQuery)) {
+
+                loadDataInFragment(searchQuery);
+            }
+
+        }
+
     }
 
     @Override
