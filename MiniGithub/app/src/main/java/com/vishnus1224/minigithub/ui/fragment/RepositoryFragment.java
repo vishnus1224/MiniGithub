@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vishnus1224.minigithub.R;
 import com.vishnus1224.minigithub.model.Repository;
@@ -85,12 +86,16 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
     @Override
     public void fetchData(String searchKeyword) {
 
+        showProgress();
+
         presenter.getRepositories(searchKeyword);
 
     }
 
     @Override
     public void showProgress() {
+
+        progressBar.setVisibility(View.VISIBLE);
 
     }
 
@@ -104,6 +109,13 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
     @Override
     public void showError(String message) {
 
+        //Show a toast with the error message if the activity is not destroyed.
+        if(getActivity() != null){
+
+            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+
+        }
+
     }
 
     @Override
@@ -113,11 +125,15 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
 
     @Override
     public void hideNoContentView() {
-        
+
+        noContentTextView.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
     public void showNoContentView() {
+
+        noContentTextView.setVisibility(View.VISIBLE);
 
     }
 }
