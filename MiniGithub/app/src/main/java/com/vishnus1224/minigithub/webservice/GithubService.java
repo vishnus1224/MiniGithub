@@ -18,5 +18,5 @@ public interface GithubService {
     String BASE_URL = "https://api.github.com/";
 
     @GET("search/repositories")
-    Call<RepositoryContainer> fetchRepositories(@Query("q") String repositoryName);
+    Call<RepositoryContainer> fetchRepositories(@Query("q") String repositoryName,@Query("page") int pageNumber, @Query("per_page") int resultsPerPage);
 }
