@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.vishnus1224.minigithub.R;
 import com.vishnus1224.minigithub.model.Repository;
-import com.vishnus1224.minigithub.ui.presenter.Presenter;
 import com.vishnus1224.minigithub.ui.presenter.RepositoryPresenter;
 import com.vishnus1224.minigithub.ui.view.RepositoryView;
 
@@ -19,7 +18,7 @@ import java.util.List;
  */
 public class RepositoryFragment extends BaseFragment implements RepositoryView {
 
-    private Presenter presenter;
+    private RepositoryPresenter presenter;
 
     @Nullable
     @Override
@@ -64,6 +63,7 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
     @Override
     public void fetchData(String searchKeyword) {
 
+        presenter.getRepositories(searchKeyword);
     }
 
     @Override
