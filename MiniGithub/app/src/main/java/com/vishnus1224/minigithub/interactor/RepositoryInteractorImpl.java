@@ -23,7 +23,7 @@ public class RepositoryInteractorImpl implements RepositoryInteractor {
         this.repositoryInteractionListener = repositoryInteractionListener;
 
         //get the webservice and make the fetch repositories call
-        Call<RepositoryContainer> call = RepositoryManager.getWebService().fetchRepositories(repositoryName);
+        Call<RepositoryContainer> call = RepositoryManager.getWebService().fetchRepositories(repositoryName, 1, 10);
 
         //fetch on a background thread and pass a callback.
         call.enqueue(callback);
