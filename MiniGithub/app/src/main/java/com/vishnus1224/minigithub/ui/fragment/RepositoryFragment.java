@@ -31,7 +31,7 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
 
     private TextView noContentTextView;
 
-    private RepositoryPresenter presenter;
+    private RepositoryPresenter presenter = new RepositoryPresenter();
 
     private List<Repository> repositoryList = new ArrayList<>();
 
@@ -52,8 +52,6 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        presenter = new RepositoryPresenter();
 
         //initialize the presenter by passing it the view.
         presenter.init(this);
