@@ -8,20 +8,24 @@ import com.vishnus1224.minigithub.ui.view.RepositoryView;
 
 import java.util.List;
 
-
 /**
  * Handles operations related to repositories.
  * Created by Vishnu on 2/6/2016.
  */
 public class RepositoryPresenter implements Presenter {
 
-    private BaseView view;
+    private RepositoryView view;
 
     private RepositoryInteractor repositoryInteractor;
 
     @Override
     public void init(BaseView view) {
-        this.view = view;
+
+        if(!(view instanceof RepositoryView)){
+            throw new RuntimeException("View must be of type RepositoryView");
+        }
+
+        this.view = (RepositoryView) view;
 
         repositoryInteractor = new RepositoryInteractorImpl();
     }
@@ -39,6 +43,10 @@ public class RepositoryPresenter implements Presenter {
     @Override
     public void destroy() {
 
+        repositoryInteractor = null;
+
+        view = null;
+
     }
 
     /**
@@ -55,12 +63,29 @@ public class RepositoryPresenter implements Presenter {
         @Override
         public void onSuccess(List<Repository> repositoryList) {
 
-            ((RepositoryView)view).showRepositories(repositoryList);
+            view.hideProgress();
+
+            if(repositoryList.isEmpty()){
+
+                //tell the view that there are no more results.
+                view.noMoreRepositories();
+
+            }else {
+
+                //hide the no content text view.
+                view.hideNoContentView();
+
+                //show the new repositories in the view.
+                view.showRepositories(repositoryList);
+
+            }
 
         }
 
         @Override
         public void onFailure(String message) {
+
+            view.hideProgress();
 
             view.showError(message);
         }
