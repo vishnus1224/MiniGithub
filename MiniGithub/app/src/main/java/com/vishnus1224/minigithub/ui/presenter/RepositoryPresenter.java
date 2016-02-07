@@ -23,6 +23,11 @@ public class RepositoryPresenter implements Presenter {
     //flag to indicate that search is currently going on.
     private boolean searchInProgress;
 
+    //The keyword that was searched before the current one. Search will not take place if current and this keyword is same.
+    //This will be used to know if the current keyword and the last one was same.
+    //If they are different than the repository list will be cleared.
+    private String lastSearchKeyword = "";
+
     @Override
     public void init(BaseView view) {
 
@@ -48,12 +53,6 @@ public class RepositoryPresenter implements Presenter {
     @Override
     public void destroy() {
 
-        searchInProgress = false;
-
-        repositoryInteractor = null;
-
-        view = null;
-
     }
 
     public void setRepositories(List<Repository> repositories){
@@ -76,6 +75,19 @@ public class RepositoryPresenter implements Presenter {
             return;
         }
 
+        //if the last searched keyword and the new one are the same and repositories are not empty, then do not search.
+        if(keywordsAreSame(repositoryName) && !repositories.isEmpty()){
+
+            view.showError("Results are shown for the current search query");
+
+            return;
+        }
+
+        //if this point is reached then set the last keyword to the one passed in.
+        lastSearchKeyword = repositoryName;
+
+        searchInProgress = true;
+
         view.hideNoContentView();
 
         view.showProgress();
@@ -83,6 +95,13 @@ public class RepositoryPresenter implements Presenter {
         repositoryInteractor.fetchRepositories(repositoryName, repositoryInteractionListener);
 
     }
+
+    private boolean keywordsAreSame(String repositoryName) {
+
+        return lastSearchKeyword.equals(repositoryName);
+
+    }
+
 
     private RepositoryInteractor.RepositoryInteractionListener repositoryInteractionListener = new RepositoryInteractor.RepositoryInteractionListener() {
         @Override
@@ -95,15 +114,17 @@ public class RepositoryPresenter implements Presenter {
             if(repositoryList.isEmpty()){
 
                 //tell the view that there are no more results.
-                view.noMoreRepositories();
+                view.showNoContentView();
 
             }else {
+
+                repositories.addAll(repositoryList);
 
                 //hide the no content text view.
                 view.hideNoContentView();
 
                 //show the new repositories in the view.
-                view.showRepositories(repositoryList);
+                view.showRepositories(repositories);
 
             }
 
@@ -118,7 +139,9 @@ public class RepositoryPresenter implements Presenter {
 
             view.showError(message);
 
-            view.noMoreRepositories();
+            if(repositories.isEmpty()) {
+                view.showNoContentView();
+            }
         }
     };
 }
