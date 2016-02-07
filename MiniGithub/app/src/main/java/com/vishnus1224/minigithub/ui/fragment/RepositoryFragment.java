@@ -45,8 +45,6 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
 
         setListViewAdapter();
 
-        hideProgress();
-
         return view;
     }
 
