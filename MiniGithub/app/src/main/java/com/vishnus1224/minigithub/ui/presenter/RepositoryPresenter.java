@@ -118,6 +118,8 @@ public class RepositoryPresenter implements Presenter {
 
             }else {
 
+                repositories.clear();
+
                 repositories.addAll(repositoryList);
 
                 //hide the no content text view.
