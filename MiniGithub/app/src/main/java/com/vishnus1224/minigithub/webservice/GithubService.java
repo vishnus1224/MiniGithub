@@ -1,6 +1,7 @@
 package com.vishnus1224.minigithub.webservice;
 
 import com.vishnus1224.minigithub.model.Repository;
+import com.vishnus1224.minigithub.model.RepositoryContainer;
 
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface GithubService {
     String BASE_URL = "https://api.github.com/";
 
     @GET("search/repositories")
-    Call<List<Repository>> fetchRepositories(@Query("q") String repositoryName);
+    Call<RepositoryContainer> fetchRepositories(@Query("q") String repositoryName);
 }
