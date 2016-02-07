@@ -2,4 +2,5 @@
     <string name="app_name">MiniGithub</string>
     <string name="action_search">Search</string>
     <string name="action_search_hint">Enter the text to search </string>
+    <string name="no_content_message">No Content To Display. \n Enter keyword to search in the search bar above.</string>
 </resources>
