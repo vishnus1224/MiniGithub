@@ -15,6 +15,11 @@ import retrofit2.Response;
  */
 public class RepositoryInteractorImpl implements RepositoryInteractor {
 
+    private static final int RESULTS_PER_PAGE = 10;
+
+    //The page number of the results page to be passed to the query.
+    private int pageNumber = 1;
+
     private RepositoryInteractionListener repositoryInteractionListener;
 
     @Override
@@ -23,14 +28,14 @@ public class RepositoryInteractorImpl implements RepositoryInteractor {
         this.repositoryInteractionListener = repositoryInteractionListener;
 
         //get the webservice and make the fetch repositories call
-        Call<RepositoryContainer> call = RepositoryManager.getWebService().fetchRepositories(repositoryName, 1, 10);
+        Call<RepositoryContainer> call = RepositoryManager.getWebService().fetchRepositories(repositoryName, pageNumber, RESULTS_PER_PAGE);
 
         //fetch on a background thread and pass a callback.
         call.enqueue(callback);
 
     }
 
-    private Callback<RepositoryContainer> callback = new Callback<RepositoryContainer>() {
+    private final Callback<RepositoryContainer> callback = new Callback<RepositoryContainer>() {
         @Override
         public void onResponse(Call<RepositoryContainer> call, Response<RepositoryContainer> response) {
 
