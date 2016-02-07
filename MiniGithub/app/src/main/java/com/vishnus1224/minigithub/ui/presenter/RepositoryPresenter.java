@@ -4,6 +4,7 @@ import com.vishnus1224.minigithub.interactor.RepositoryInteractor;
 import com.vishnus1224.minigithub.interactor.RepositoryInteractorImpl;
 import com.vishnus1224.minigithub.model.Repository;
 import com.vishnus1224.minigithub.ui.view.BaseView;
+import com.vishnus1224.minigithub.ui.view.RepositoryView;
 
 import java.util.List;
 
@@ -54,11 +55,14 @@ public class RepositoryPresenter implements Presenter {
         @Override
         public void onSuccess(List<Repository> repositoryList) {
 
+            ((RepositoryView)view).showRepositories(repositoryList);
+
         }
 
         @Override
         public void onFailure(String message) {
 
+            view.showError(message);
         }
     };
 }
