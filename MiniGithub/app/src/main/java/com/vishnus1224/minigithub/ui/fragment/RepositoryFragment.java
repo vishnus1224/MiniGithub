@@ -139,9 +139,6 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
     @Override
     public void showRepositories(List<Repository> repositoryList) {
 
-        //add new repositories to the list.
-        this.repositoryList.addAll(repositoryList);
-
         //notify the adapter.
         repositoryListAdapter.notifyDataSetChanged();
 
@@ -161,15 +158,4 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
 
     }
 
-    @Override
-    public void noMoreRepositories() {
-
-        //if the repo list is empty then show the no content view.
-        if(repositoryList.isEmpty()){
-
-            showNoContentView();
-
-        }
-
-    }
 }
