@@ -169,6 +169,8 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
 
         selectedTabIndex = tab.getPosition();
 
+        homeTabViewPager.setCurrentItem(selectedTabIndex);
+
         if(searchView != null) {
 
             //Get the search query from the search view.
