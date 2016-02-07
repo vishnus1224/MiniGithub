@@ -31,6 +31,8 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
     private ViewPager homeTabViewPager;
     private MainTabsPagerAdapter mainTabsPagerAdapter;
 
+    private SearchView searchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,24 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
         super.onNewIntent(intent);
 
         handleSearchIntent(intent);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+
+        menuInflater.inflate(R.menu.home_menu, menu);
+
+        //Associate the searchable info with the search view.
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
+        searchView = (SearchView) menu.findItem(R.id.homeActionSearch).getActionView();
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        return true;
     }
 
     private void setupViews() {
@@ -145,20 +165,4 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater menuInflater = getMenuInflater();
-
-        menuInflater.inflate(R.menu.home_menu, menu);
-
-        //Associate the searchable info with the search view.
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-
-        SearchView searchView = (SearchView) menu.findItem(R.id.homeActionSearch).getActionView();
-
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
-        return true;
-    }
 }
