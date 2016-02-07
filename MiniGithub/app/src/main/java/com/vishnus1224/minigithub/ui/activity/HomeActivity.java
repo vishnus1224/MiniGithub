@@ -48,8 +48,6 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
 
         setupTabs();
 
-        handleSearchIntent(getIntent());
-
         setTabListener();
 
     }
@@ -78,6 +76,7 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
 
         return true;
     }
+
 
     private void setupViews() {
 
