@@ -18,6 +18,11 @@ public class RepositoryPresenter implements Presenter {
 
     private RepositoryInteractor repositoryInteractor;
 
+    private List<Repository> repositories;
+
+    //flag to indicate that search is currently going on.
+    private boolean searchInProgress;
+
     @Override
     public void init(BaseView view) {
 
@@ -43,9 +48,17 @@ public class RepositoryPresenter implements Presenter {
     @Override
     public void destroy() {
 
+        searchInProgress = false;
+
         repositoryInteractor = null;
 
         view = null;
+
+    }
+
+    public void setRepositories(List<Repository> repositories){
+
+        this.repositories = repositories;
 
     }
 
@@ -53,7 +66,19 @@ public class RepositoryPresenter implements Presenter {
      * Fetch all repositories that match the given name.
      * @param repositoryName The name of the repository to search.
      */
-    public void getRepositories(String repositoryName){
+    public void searchRepositories(String repositoryName){
+
+        //if search is in progress, then notify view and return.
+        if(searchInProgress){
+
+            view.showError("Search currently in progress");
+
+            return;
+        }
+
+        view.hideNoContentView();
+
+        view.showProgress();
 
         repositoryInteractor.fetchRepositories(repositoryName, repositoryInteractionListener);
 
@@ -62,6 +87,8 @@ public class RepositoryPresenter implements Presenter {
     private RepositoryInteractor.RepositoryInteractionListener repositoryInteractionListener = new RepositoryInteractor.RepositoryInteractionListener() {
         @Override
         public void onSuccess(List<Repository> repositoryList) {
+
+            searchInProgress = false;
 
             view.hideProgress();
 
@@ -85,9 +112,13 @@ public class RepositoryPresenter implements Presenter {
         @Override
         public void onFailure(String message) {
 
+            searchInProgress = false;
+
             view.hideProgress();
 
             view.showError(message);
+
+            view.noMoreRepositories();
         }
     };
 }
