@@ -59,6 +59,9 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
 
         //initialize the presenter by passing it the view.
         presenter.init(this);
+
+        //pass the repository list to the presenter.
+        presenter.setRepositories(repositoryList);
     }
 
     @Override
@@ -103,16 +106,7 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
     @Override
     public void fetchData(String searchKeyword) {
 
-        hideNoContentView();
-
-        //fetch data only if the list is empty.
-        if(repositoryList.isEmpty()) {
-
-            showProgress();
-
-            presenter.getRepositories(searchKeyword);
-
-        }
+        presenter.searchRepositories(searchKeyword);
 
     }
 
@@ -137,9 +131,6 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
         if(getActivity() != null){
 
             Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-
-            //check if repository list is empty and show the no content view.
-            noMoreRepositories();
 
         }
 
