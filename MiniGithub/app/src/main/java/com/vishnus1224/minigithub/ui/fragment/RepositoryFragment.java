@@ -12,9 +12,11 @@ import android.widget.Toast;
 
 import com.vishnus1224.minigithub.R;
 import com.vishnus1224.minigithub.model.Repository;
+import com.vishnus1224.minigithub.ui.adapter.RepositoryListAdapter;
 import com.vishnus1224.minigithub.ui.presenter.RepositoryPresenter;
 import com.vishnus1224.minigithub.ui.view.RepositoryView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,12 +25,15 @@ import java.util.List;
 public class RepositoryFragment extends BaseFragment implements RepositoryView {
 
     private ListView repositoryListView;
+    private RepositoryListAdapter repositoryListAdapter;
 
     private ProgressBar progressBar;
 
     private TextView noContentTextView;
 
     private RepositoryPresenter presenter;
+
+    private List<Repository> repositoryList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -38,19 +43,13 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
 
         setupViews(view);
 
+        setListViewAdapter();
+
         hideProgress();
 
         return view;
     }
 
-    private void setupViews(View view) {
-
-        repositoryListView = (ListView) view.findViewById(R.id.repositoryListView);
-
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-
-        noContentTextView = (TextView) view.findViewById(R.id.noContentTextView);
-    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -83,12 +82,37 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
         presenter.destroy();
     }
 
+
+    private void setupViews(View view) {
+
+        repositoryListView = (ListView) view.findViewById(R.id.repositoryListView);
+
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+
+        noContentTextView = (TextView) view.findViewById(R.id.noContentTextView);
+    }
+
+
+    private void setListViewAdapter() {
+
+        repositoryListAdapter = new RepositoryListAdapter(LayoutInflater.from(getActivity()), repositoryList);
+
+        repositoryListView.setAdapter(repositoryListAdapter);
+    }
+
     @Override
     public void fetchData(String searchKeyword) {
 
-        showProgress();
+        hideNoContentView();
 
-        presenter.getRepositories(searchKeyword);
+        //fetch data only if the list is empty.
+        if(repositoryList.isEmpty()) {
+
+            showProgress();
+
+            presenter.getRepositories(searchKeyword);
+
+        }
 
     }
 
@@ -114,12 +138,21 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
 
             Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
 
+            //check if repository list is empty and show the no content view.
+            noMoreRepositories();
+
         }
 
     }
 
     @Override
     public void showRepositories(List<Repository> repositoryList) {
+
+        //add new repositories to the list.
+        this.repositoryList.addAll(repositoryList);
+
+        //notify the adapter.
+        repositoryListAdapter.notifyDataSetChanged();
 
     }
 
@@ -134,6 +167,18 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
     public void showNoContentView() {
 
         noContentTextView.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void noMoreRepositories() {
+
+        //if the repo list is empty then show the no content view.
+        if(repositoryList.isEmpty()){
+
+            showNoContentView();
+
+        }
 
     }
 }
