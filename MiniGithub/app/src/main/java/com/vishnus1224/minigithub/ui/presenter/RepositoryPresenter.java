@@ -45,6 +45,13 @@ public class RepositoryPresenter implements Presenter {
     @Override
     public void resume() {
 
+        //hide the no content view is repositories are not empty.
+        if(!repositories.isEmpty()){
+
+            view.hideNoContentView();
+
+        }
+
     }
 
     @Override
