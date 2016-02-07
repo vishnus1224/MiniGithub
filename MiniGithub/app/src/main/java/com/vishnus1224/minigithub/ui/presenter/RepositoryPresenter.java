@@ -1,5 +1,7 @@
 package com.vishnus1224.minigithub.ui.presenter;
 
+import android.text.TextUtils;
+
 import com.vishnus1224.minigithub.interactor.RepositoryInteractor;
 import com.vishnus1224.minigithub.interactor.RepositoryInteractorImpl;
 import com.vishnus1224.minigithub.model.Repository;
@@ -79,6 +81,18 @@ public class RepositoryPresenter implements Presenter {
         if(keywordsAreSame(repositoryName) && !repositories.isEmpty()){
 
             view.showError("Results are shown for the current search query");
+
+            return;
+        }
+
+        //if the last search keyword is empty and repositories are not empty,
+        //then user has navigated away from the fragment and come back to it.
+        if(TextUtils.isEmpty(lastSearchKeyword) && !repositories.isEmpty()){
+
+            view.hideNoContentView();
+
+            //update the last search keyword.
+            lastSearchKeyword = repositoryName;
 
             return;
         }
