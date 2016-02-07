@@ -2,6 +2,7 @@ package com.vishnus1224.minigithub.interactor;
 
 import com.vishnus1224.minigithub.manager.RepositoryManager;
 import com.vishnus1224.minigithub.model.Repository;
+import com.vishnus1224.minigithub.model.RepositoryContainer;
 
 import java.util.List;
 
@@ -22,21 +23,21 @@ public class RepositoryInteractorImpl implements RepositoryInteractor {
         this.repositoryInteractionListener = repositoryInteractionListener;
 
         //get the webservice and make the fetch repositories call
-        Call<List<Repository>> call = RepositoryManager.getWebService().fetchRepositories(repositoryName);
+        Call<RepositoryContainer> call = RepositoryManager.getWebService().fetchRepositories(repositoryName);
 
         //fetch on a background thread and pass a callback.
         call.enqueue(callback);
 
     }
 
-    private Callback<List<Repository>> callback = new Callback<List<Repository>>() {
+    private Callback<RepositoryContainer> callback = new Callback<RepositoryContainer>() {
         @Override
-        public void onResponse(Call<List<Repository>> call, Response<List<Repository>> response) {
+        public void onResponse(Call<RepositoryContainer> call, Response<RepositoryContainer> response) {
 
             if(response.isSuccess()){
 
                 //call the success method on the listener.
-                repositoryInteractionListener.onSuccess(response.body());
+                repositoryInteractionListener.onSuccess(response.body().getRepositories());
 
             }else{
 
@@ -46,7 +47,7 @@ public class RepositoryInteractorImpl implements RepositoryInteractor {
         }
 
         @Override
-        public void onFailure(Call<List<Repository>> call, Throwable t) {
+        public void onFailure(Call<RepositoryContainer> call, Throwable t) {
 
             repositoryInteractionListener.onFailure(t.getMessage());
         }
