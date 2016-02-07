@@ -25,7 +25,7 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_repositorie, container, false);
+        View view = inflater.inflate(R.layout.fragment_repository, container, false);
 
         return view;
     }
