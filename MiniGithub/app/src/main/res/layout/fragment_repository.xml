@@ -4,7 +4,10 @@
     android:layout_height="match_parent">
 
     <include
-        android:id="@+id/repositoryProgressBar"
+        android:text="@string/no_content_message"
+        layout="@layout/no_content_view"/>
+
+    <include
         layout="@layout/progress_view" />
 
     <ListView
