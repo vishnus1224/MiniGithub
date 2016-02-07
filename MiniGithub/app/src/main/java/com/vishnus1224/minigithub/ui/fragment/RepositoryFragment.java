@@ -5,6 +5,9 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.vishnus1224.minigithub.R;
 import com.vishnus1224.minigithub.model.Repository;
@@ -18,6 +21,12 @@ import java.util.List;
  */
 public class RepositoryFragment extends BaseFragment implements RepositoryView {
 
+    private ListView repositoryListView;
+
+    private ProgressBar progressBar;
+
+    private TextView noContentTextView;
+
     private RepositoryPresenter presenter;
 
     @Nullable
@@ -26,7 +35,20 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
 
         View view = inflater.inflate(R.layout.fragment_repository, container, false);
 
+        setupViews(view);
+
+        hideProgress();
+
         return view;
+    }
+
+    private void setupViews(View view) {
+
+        repositoryListView = (ListView) view.findViewById(R.id.repositoryListView);
+
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+
+        noContentTextView = (TextView) view.findViewById(R.id.noContentTextView);
     }
 
     @Override
@@ -64,6 +86,7 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
     public void fetchData(String searchKeyword) {
 
         presenter.getRepositories(searchKeyword);
+
     }
 
     @Override
@@ -73,6 +96,8 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
 
     @Override
     public void hideProgress() {
+
+        progressBar.setVisibility(View.INVISIBLE);
 
     }
 
