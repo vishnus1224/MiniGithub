@@ -115,6 +115,8 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
 
         footerProgressBar = (ProgressBar) listViewFooter.findViewById(R.id.progressBar);
 
+        loadMoreButton.setOnClickListener(loadMoreClickListener);
+
     }
 
     @Override
@@ -184,21 +186,52 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
     @Override
     public void enableLoadMoreButton() {
 
+        loadMoreButton.setEnabled(true);
+
     }
 
     @Override
     public void disableLoadMoreButton() {
+
+        loadMoreButton.setEnabled(false);
 
     }
 
     @Override
     public void showFooterProgress() {
 
+        footerProgressBar.setVisibility(View.VISIBLE);
+
     }
 
     @Override
     public void hideFooterProgress() {
 
+        footerProgressBar.setVisibility(View.INVISIBLE);
+
     }
+
+    @Override
+    public void showLoadMoreButton() {
+
+        loadMoreButton.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void hideLoadMoreButton() {
+
+        loadMoreButton.setVisibility(View.INVISIBLE);
+
+    }
+
+    private View.OnClickListener loadMoreClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            presenter.loadMoreRepositories();
+
+        }
+    };
 
 }
