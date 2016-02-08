@@ -95,6 +95,8 @@ public class RepositoryPresenter implements Presenter {
 
             view.showError("Results are shown for the current search query");
 
+            view.addFooterView();
+
             return;
         }
 
@@ -103,6 +105,8 @@ public class RepositoryPresenter implements Presenter {
         if(TextUtils.isEmpty(lastSearchKeyword) && !repositories.isEmpty()){
 
             view.hideNoContentView();
+
+            view.addFooterView();
 
             //update the last search keyword.
             lastSearchKeyword = repositoryName;
@@ -122,6 +126,7 @@ public class RepositoryPresenter implements Presenter {
         repositoryInteractor.fetchRepositories(repositoryName, repositoryInteractionListener);
 
     }
+    
 
     private boolean keywordsAreSame(String repositoryName) {
 
