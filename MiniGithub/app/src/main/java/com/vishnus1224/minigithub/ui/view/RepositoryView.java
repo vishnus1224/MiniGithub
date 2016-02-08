@@ -9,8 +9,8 @@ import java.util.List;
  */
 public interface RepositoryView extends BaseView {
 
-    //update the ui using the list of repositories provided.
-    void showRepositories(List<Repository> repositoryList);
+    //update the ui by notifying the adapter.
+    void showRepositories();
 
     void hideNoContentView();
 

@@ -153,7 +153,7 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
     }
 
     @Override
-    public void showRepositories(List<Repository> repositoryList) {
+    public void showRepositories() {
 
         //notify the adapter.
         repositoryListAdapter.notifyDataSetChanged();
