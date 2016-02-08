@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,6 +32,12 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
 
     private TextView noContentTextView;
 
+    private View listViewFooter;
+
+    private Button loadMoreButton;
+
+    private ProgressBar footerProgressBar;
+
     private RepositoryPresenter presenter = new RepositoryPresenter();
 
     private List<Repository> repositoryList = new ArrayList<>();
@@ -45,9 +52,10 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
 
         setListViewAdapter();
 
+        setupListViewFooter();
+
         return view;
     }
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -99,6 +107,16 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
         repositoryListView.setAdapter(repositoryListAdapter);
     }
 
+    private void setupListViewFooter() {
+
+        listViewFooter = View.inflate(getActivity(), R.layout.footer_load_more, null);
+
+        loadMoreButton = (Button) listViewFooter.findViewById(R.id.buttonLoadMore);
+
+        footerProgressBar = (ProgressBar) listViewFooter.findViewById(R.id.progressBar);
+
+    }
+
     @Override
     public void fetchData(String searchKeyword) {
 
@@ -138,6 +156,8 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
         //notify the adapter.
         repositoryListAdapter.notifyDataSetChanged();
 
+        addFooterView();
+
     }
 
     @Override
@@ -151,6 +171,33 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
     public void showNoContentView() {
 
         noContentTextView.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void addFooterView() {
+
+        repositoryListView.addFooterView(listViewFooter);
+
+    }
+
+    @Override
+    public void enableLoadMoreButton() {
+
+    }
+
+    @Override
+    public void disableLoadMoreButton() {
+
+    }
+
+    @Override
+    public void showFooterProgress() {
+
+    }
+
+    @Override
+    public void hideFooterProgress() {
 
     }
 
