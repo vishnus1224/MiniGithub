@@ -50,6 +50,8 @@ public class RepositoryPresenter implements Presenter {
 
             view.hideNoContentView();
 
+            view.addFooterView();
+
         }
 
         if(searchInProgress){
@@ -126,7 +128,7 @@ public class RepositoryPresenter implements Presenter {
         repositoryInteractor.fetchRepositories(repositoryName, repositoryInteractionListener);
 
     }
-    
+
 
     private boolean keywordsAreSame(String repositoryName) {
 
@@ -135,6 +137,11 @@ public class RepositoryPresenter implements Presenter {
     }
 
 
+    /**
+     * Listener when fetching repositories for the 1st time.
+     * Can use this for both the requests by distinguishing requests using an identifier of some kind but keeping it separate for clarity.
+     * The listener for loading more repositories is defined below.
+     */
     private final RepositoryInteractor.RepositoryInteractionListener repositoryInteractionListener = new RepositoryInteractor.RepositoryInteractionListener() {
         @Override
         public void onSuccess(List<Repository> repositoryList) {
@@ -176,6 +183,34 @@ public class RepositoryPresenter implements Presenter {
             if(repositories.isEmpty()) {
                 view.showNoContentView();
             }
+        }
+    };
+
+    /**
+     * Loads more repositories for this keyword.
+     */
+    public void loadMoreRepositories() {
+
+        view.hideLoadMoreButton();
+
+        view.showFooterProgress();
+
+        repositoryInteractor.loadMoreRepositories(lastSearchKeyword, loadMoreInteractionListener);
+
+    }
+
+    /**
+     * Called after more repositories have finished loading.
+     */
+    private final RepositoryInteractor.RepositoryInteractionListener loadMoreInteractionListener = new RepositoryInteractor.RepositoryInteractionListener() {
+        @Override
+        public void onSuccess(List<Repository> repositoryList) {
+
+        }
+
+        @Override
+        public void onFailure(String message) {
+
         }
     };
 }
