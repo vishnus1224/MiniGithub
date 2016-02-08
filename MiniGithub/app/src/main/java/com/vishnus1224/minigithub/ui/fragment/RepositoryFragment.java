@@ -179,7 +179,10 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
     @Override
     public void addFooterView() {
 
-        repositoryListView.addFooterView(listViewFooter);
+        //Add footer view if one does not already exist.
+        if(repositoryListView.getFooterViewsCount() == 0) {
+            repositoryListView.addFooterView(listViewFooter);
+        }
 
     }
 
