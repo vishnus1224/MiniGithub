@@ -22,10 +22,37 @@ public class RepositoryInteractorImpl implements RepositoryInteractor {
 
     private RepositoryInteractionListener repositoryInteractionListener;
 
+    //Flag for differentiating between normal fetch and loading more.
+    //Used for decreasing the page number if an error occurs.
+    private boolean loadMore = false;
+
     @Override
     public void fetchRepositories(String repositoryName, RepositoryInteractionListener repositoryInteractionListener) {
 
         this.repositoryInteractionListener = repositoryInteractionListener;
+
+        loadMore = false;
+
+        //reset the page number to 1.
+        pageNumber = 1;
+
+        fetchRepositories(repositoryName);
+    }
+
+    @Override
+    public void loadMoreRepositories(String repositoryName, RepositoryInteractionListener repositoryInteractionListener) {
+
+        this.repositoryInteractionListener = repositoryInteractionListener;
+
+        incrementPageNumber(1);
+
+        loadMore = true;
+
+        fetchRepositories(repositoryName);
+
+    }
+
+    private void fetchRepositories(String repositoryName){
 
         //get the webservice and make the fetch repositories call
         Call<RepositoryContainer> call = RepositoryManager.getWebService().fetchRepositories(repositoryName, pageNumber, RESULTS_PER_PAGE);
@@ -42,11 +69,17 @@ public class RepositoryInteractorImpl implements RepositoryInteractor {
             if(response.isSuccess()){
 
                 //call the success method on the listener.
-                repositoryInteractionListener.onSuccess(response.body().getRepositories());
+                if(repositoryInteractionListener != null) {
+                    repositoryInteractionListener.onSuccess(response.body().getRepositories());
+                }
 
             }else{
 
-                repositoryInteractionListener.onFailure(response.message());
+                checkLoadMoreCondition();
+
+                if(repositoryInteractionListener != null) {
+                    repositoryInteractionListener.onFailure(response.message());
+                }
             }
 
         }
@@ -54,7 +87,35 @@ public class RepositoryInteractorImpl implements RepositoryInteractor {
         @Override
         public void onFailure(Call<RepositoryContainer> call, Throwable t) {
 
-            repositoryInteractionListener.onFailure(t.getMessage());
+            checkLoadMoreCondition();
+
+            if(repositoryInteractionListener != null) {
+                repositoryInteractionListener.onFailure(t.getMessage());
+            }
         }
     };
+
+    //decrease the page number by 1 if load more is true.
+    private void checkLoadMoreCondition() {
+
+        if(loadMore){
+
+            loadMore = false;
+
+            decrementPageNumber(1);
+
+        }
+    }
+
+    private void incrementPageNumber(int amount){
+
+        pageNumber += amount;
+
+    }
+
+    private void decrementPageNumber(int amount){
+
+        pageNumber -= amount;
+
+    }
 }
