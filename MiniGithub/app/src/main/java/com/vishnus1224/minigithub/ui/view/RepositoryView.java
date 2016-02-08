@@ -16,4 +16,14 @@ public interface RepositoryView extends BaseView {
 
     void showNoContentView();
 
+    void addFooterView();
+
+    void enableLoadMoreButton();
+
+    void disableLoadMoreButton();
+
+    void showFooterProgress();
+
+    void hideFooterProgress();
+
 }
