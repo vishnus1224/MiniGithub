@@ -18,7 +18,7 @@ public class RepositoryPresenter implements Presenter {
 
     private RepositoryView view;
 
-    private RepositoryInteractor repositoryInteractor;
+    private RepositoryInteractor repositoryInteractor = new RepositoryInteractorImpl();
 
     private List<Repository> repositories;
 
@@ -38,8 +38,6 @@ public class RepositoryPresenter implements Presenter {
         }
 
         this.view = (RepositoryView) view;
-
-        repositoryInteractor = new RepositoryInteractorImpl();
     }
 
     @Override
@@ -56,6 +54,8 @@ public class RepositoryPresenter implements Presenter {
 
         if(searchInProgress){
 
+            view.hideNoContentView();
+            
             view.showProgress();
 
         }
@@ -165,7 +165,7 @@ public class RepositoryPresenter implements Presenter {
                 view.hideNoContentView();
 
                 //show the new repositories in the view.
-                view.showRepositories(repositories);
+                view.showRepositories();
 
             }
 
@@ -206,10 +206,33 @@ public class RepositoryPresenter implements Presenter {
         @Override
         public void onSuccess(List<Repository> repositoryList) {
 
+            if(repositoryList.isEmpty()){
+
+                view.showError("No more repositories found");
+
+            }else{
+
+                repositories.addAll(repositoryList);
+
+                view.showRepositories();
+
+            }
+
+            view.hideFooterProgress();
+
+            view.showLoadMoreButton();
+
+
         }
 
         @Override
         public void onFailure(String message) {
+
+            view.showError(message);
+
+            view.hideFooterProgress();
+
+            view.showLoadMoreButton();
 
         }
     };
