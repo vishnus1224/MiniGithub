@@ -14,6 +14,7 @@
         android:id="@+id/adapterRepositoryName"
         android:textStyle="bold"
         android:textSize="@dimen/value_20sp"
+        android:singleLine="true"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/adapterRepositoryLanguage"
         android:layout_width="wrap_content"
