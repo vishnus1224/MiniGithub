@@ -25,6 +25,9 @@ public class RepositoryPresenter implements Presenter {
     //flag to indicate that search is currently going on.
     private boolean searchInProgress;
 
+    //flag to check if load more request is in progress.
+    private boolean loadingMore;
+
     //The keyword that was searched before the current one. Search will not take place if current and this keyword is same.
     //This will be used to know if the current keyword and the last one was same.
     //If they are different than the repository list will be cleared.
@@ -55,8 +58,16 @@ public class RepositoryPresenter implements Presenter {
         if(searchInProgress){
 
             view.hideNoContentView();
-            
+
             view.showProgress();
+
+        }
+
+        if(loadingMore){
+
+            view.showFooterProgress();
+
+            view.hideLoadMoreButton();
 
         }
 
@@ -85,9 +96,9 @@ public class RepositoryPresenter implements Presenter {
     public void searchRepositories(String repositoryName){
 
         //if search is in progress, then notify view and return.
-        if(searchInProgress){
+        if(searchInProgress || loadingMore){
 
-            view.showError("Search currently in progress");
+            view.showError("Search is in progress");
 
             return;
         }
@@ -191,9 +202,19 @@ public class RepositoryPresenter implements Presenter {
      */
     public void loadMoreRepositories() {
 
+        if(searchInProgress){
+
+            view.showError("Search is in progress");
+
+            return;
+
+        }
+
         view.hideLoadMoreButton();
 
         view.showFooterProgress();
+
+        loadingMore = true;
 
         repositoryInteractor.loadMoreRepositories(lastSearchKeyword, loadMoreInteractionListener);
 
@@ -205,6 +226,8 @@ public class RepositoryPresenter implements Presenter {
     private final RepositoryInteractor.RepositoryInteractionListener loadMoreInteractionListener = new RepositoryInteractor.RepositoryInteractionListener() {
         @Override
         public void onSuccess(List<Repository> repositoryList) {
+
+            loadingMore = false;
 
             if(repositoryList.isEmpty()){
 
@@ -227,6 +250,8 @@ public class RepositoryPresenter implements Presenter {
 
         @Override
         public void onFailure(String message) {
+
+            loadingMore = false;
 
             view.showError(message);
 
