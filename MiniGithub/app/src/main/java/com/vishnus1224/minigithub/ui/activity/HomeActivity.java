@@ -3,6 +3,7 @@ package com.vishnus1224.minigithub.ui.activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -77,6 +78,21 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
         return true;
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+
+            homeTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+
+        }else if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+
+            homeTabLayout.setTabMode(TabLayout.MODE_FIXED);
+
+        }
+
+    }
 
     private void setupViews() {
 
