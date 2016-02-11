@@ -187,6 +187,17 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
     }
 
     @Override
+    public void removeFooterView() {
+
+        if(listViewFooter != null && repositoryListView.getFooterViewsCount() > 0){
+
+            repositoryListView.removeFooterView(listViewFooter);
+
+        }
+
+    }
+
+    @Override
     public void enableLoadMoreButton() {
 
         loadMoreButton.setEnabled(true);
