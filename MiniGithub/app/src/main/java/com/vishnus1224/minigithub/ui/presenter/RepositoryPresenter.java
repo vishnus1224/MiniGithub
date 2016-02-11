@@ -4,6 +4,8 @@ import android.text.TextUtils;
 
 import com.vishnus1224.minigithub.interactor.RepositoryInteractor;
 import com.vishnus1224.minigithub.interactor.RepositoryInteractorImpl;
+import com.vishnus1224.minigithub.listener.FetchRepositoriesListener;
+import com.vishnus1224.minigithub.listener.LoadMoreRepositoriesListener;
 import com.vishnus1224.minigithub.model.Repository;
 import com.vishnus1224.minigithub.ui.view.BaseView;
 import com.vishnus1224.minigithub.ui.view.RepositoryView;
@@ -33,6 +35,12 @@ public class RepositoryPresenter implements Presenter {
     //If they are different than the repository list will be cleared.
     private String lastSearchKeyword = "";
 
+    //listener for getting callback when repository fetch is completed.
+    private FetchRepositoriesListener fetchRepositoriesListener;
+
+    //listener for getting callback when load more repository call is completed.
+    private LoadMoreRepositoriesListener loadMoreRepositoriesListener;
+
     @Override
     public void init(BaseView view) {
 
@@ -41,6 +49,10 @@ public class RepositoryPresenter implements Presenter {
         }
 
         this.view = (RepositoryView) view;
+
+        fetchRepositoriesListener = new FetchRepositoriesListener(this);
+
+        loadMoreRepositoriesListener = new LoadMoreRepositoriesListener(this);
     }
 
     @Override
@@ -80,6 +92,10 @@ public class RepositoryPresenter implements Presenter {
 
     @Override
     public void destroy() {
+
+        fetchRepositoriesListener = null;
+
+        loadMoreRepositoriesListener = null;
 
     }
 
@@ -136,7 +152,7 @@ public class RepositoryPresenter implements Presenter {
 
         view.showProgress();
 
-        repositoryInteractor.fetchRepositories(repositoryName, repositoryInteractionListener);
+        repositoryInteractor.fetchRepositories(repositoryName, fetchRepositoriesListener);
 
     }
 
@@ -147,55 +163,47 @@ public class RepositoryPresenter implements Presenter {
 
     }
 
+    //Fetch repositories successful.
+    public void repositoryFetchSuccess(List<Repository> repositories){
 
-    /**
-     * Listener when fetching repositories for the 1st time.
-     * Can use this for both the requests by distinguishing requests using an identifier of some kind but keeping it separate for clarity.
-     * The listener for loading more repositories is defined below.
-     */
-    private final RepositoryInteractor.RepositoryInteractionListener repositoryInteractionListener = new RepositoryInteractor.RepositoryInteractionListener() {
-        @Override
-        public void onSuccess(List<Repository> repositoryList) {
+        searchInProgress = false;
 
-            searchInProgress = false;
+        view.hideProgress();
 
-            view.hideProgress();
+        if(repositories.isEmpty()){
 
-            if(repositoryList.isEmpty()){
+            //tell the view that there are no more results.
+            view.showNoContentView();
 
-                //tell the view that there are no more results.
-                view.showNoContentView();
+        }else {
 
-            }else {
+            this.repositories.clear();
 
-                repositories.clear();
+            this.repositories.addAll(repositories);
 
-                repositories.addAll(repositoryList);
+            //hide the no content text view.
+            view.hideNoContentView();
 
-                //hide the no content text view.
-                view.hideNoContentView();
-
-                //show the new repositories in the view.
-                view.showRepositories();
-
-            }
+            //show the new repositories in the view.
+            view.showRepositories();
 
         }
+    }
 
-        @Override
-        public void onFailure(String message) {
+    //Failed to fetch repositories.
+    public void repositoryFetchFailure(String message){
 
-            searchInProgress = false;
+        searchInProgress = false;
 
-            view.hideProgress();
+        view.hideProgress();
 
-            view.showError(message);
+        view.showError(message);
 
-            if(repositories.isEmpty()) {
-                view.showNoContentView();
-            }
+        if(repositories.isEmpty()) {
+            view.showNoContentView();
         }
-    };
+
+    }
 
     /**
      * Loads more repositories for this keyword.
@@ -216,49 +224,46 @@ public class RepositoryPresenter implements Presenter {
 
         loadingMore = true;
 
-        repositoryInteractor.loadMoreRepositories(lastSearchKeyword, loadMoreInteractionListener);
+        repositoryInteractor.loadMoreRepositories(lastSearchKeyword, loadMoreRepositoriesListener);
 
     }
 
     /**
-     * Called after more repositories have finished loading.
+     * Successfully fetched more repositories.
+     * @param repositoryList List of repositories fetched.
      */
-    private final RepositoryInteractor.RepositoryInteractionListener loadMoreInteractionListener = new RepositoryInteractor.RepositoryInteractionListener() {
-        @Override
-        public void onSuccess(List<Repository> repositoryList) {
+    public void loadMoreRepositoriesSuccess(List<Repository> repositoryList){
 
-            loadingMore = false;
+        loadingMore = false;
 
-            if(repositoryList.isEmpty()){
+        if(repositoryList.isEmpty()){
 
-                view.showError("No more repositories found");
+            view.showError("No more repositories found");
 
-            }else{
+        }else{
 
-                repositories.addAll(repositoryList);
+            repositories.addAll(repositoryList);
 
-                view.showRepositories();
-
-            }
-
-            view.hideFooterProgress();
-
-            view.showLoadMoreButton();
-
+            view.showRepositories();
 
         }
 
-        @Override
-        public void onFailure(String message) {
+        view.hideFooterProgress();
 
-            loadingMore = false;
+        view.showLoadMoreButton();
+    }
 
-            view.showError(message);
+    //Failed to fetch repositories.
+    public void loadMoreRepositoriesFailure(String message){
 
-            view.hideFooterProgress();
+        loadingMore = false;
 
-            view.showLoadMoreButton();
+        view.showError(message);
 
-        }
-    };
+        view.hideFooterProgress();
+
+        view.showLoadMoreButton();
+
+    }
+
 }
