@@ -35,11 +35,21 @@ public class RepositoryPresenter implements Presenter {
     //If they are different than the repository list will be cleared.
     private String lastSearchKeyword = "";
 
+    //Name of the repository being searched.
+    private String currentRepositoryName;
+
     //listener for getting callback when repository fetch is completed.
     private FetchRepositoriesListener fetchRepositoriesListener;
 
     //listener for getting callback when load more repository call is completed.
     private LoadMoreRepositoriesListener loadMoreRepositoriesListener;
+
+
+    public void setRepositories(List<Repository> repositories){
+
+        this.repositories = repositories;
+
+    }
 
     @Override
     public void init(BaseView view) {
@@ -99,12 +109,6 @@ public class RepositoryPresenter implements Presenter {
 
     }
 
-    public void setRepositories(List<Repository> repositories){
-
-        this.repositories = repositories;
-
-    }
-
     /**
      * Fetch all repositories that match the given name.
      * @param repositoryName The name of the repository to search.
@@ -131,7 +135,7 @@ public class RepositoryPresenter implements Presenter {
 
         //if the last search keyword is empty and repositories are not empty,
         //then user has navigated away from the fragment and come back to it.
-        if(TextUtils.isEmpty(lastSearchKeyword) && !repositories.isEmpty()){
+        /*if(TextUtils.isEmpty(lastSearchKeyword) && !repositories.isEmpty()){
 
             view.hideNoContentView();
 
@@ -141,10 +145,10 @@ public class RepositoryPresenter implements Presenter {
             lastSearchKeyword = repositoryName;
 
             return;
-        }
+        }*/
 
-        //if this point is reached then set the last keyword to the one passed in.
-        lastSearchKeyword = repositoryName;
+        //set the current repository name.
+        currentRepositoryName = repositoryName;
 
         searchInProgress = true;
 
@@ -167,6 +171,8 @@ public class RepositoryPresenter implements Presenter {
     public void repositoryFetchSuccess(List<Repository> repositories){
 
         searchInProgress = false;
+
+        lastSearchKeyword = currentRepositoryName;
 
         view.hideProgress();
 
