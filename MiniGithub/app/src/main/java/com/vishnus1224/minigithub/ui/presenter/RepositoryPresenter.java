@@ -32,7 +32,6 @@ public class RepositoryPresenter implements Presenter {
 
     //The keyword that was searched before the current one. Search will not take place if current and this keyword is same.
     //This will be used to know if the current keyword and the last one was same.
-    //If they are different than the repository list will be cleared.
     private String lastSearchKeyword = "";
 
     //Name of the repository being searched.
@@ -123,29 +122,27 @@ public class RepositoryPresenter implements Presenter {
             return;
         }
 
-        //if the last searched keyword and the new one are the same and repositories are not empty, then do not search.
-        if(keywordsAreSame(repositoryName) && !repositories.isEmpty()){
+        //if the last searched keyword and the new one are same.
+        if(keywordsAreSame(repositoryName)){
 
-            view.showError("Results are shown for the current search query");
+            if(repositories.isEmpty()){
 
-            view.addFooterView();
+                view.showNoContentView();
+
+            }else{
+
+                //if repositories are not empty, then do not search.
+
+                view.showError("Results are shown for the current search query");
+
+                view.addFooterView();
+
+            }
 
             return;
         }
 
-        //if the last search keyword is empty and repositories are not empty,
-        //then user has navigated away from the fragment and come back to it.
-        /*if(TextUtils.isEmpty(lastSearchKeyword) && !repositories.isEmpty()){
 
-            view.hideNoContentView();
-
-            view.addFooterView();
-
-            //update the last search keyword.
-            lastSearchKeyword = repositoryName;
-
-            return;
-        }*/
 
         //set the current repository name.
         currentRepositoryName = repositoryName;
@@ -176,19 +173,27 @@ public class RepositoryPresenter implements Presenter {
 
         view.hideProgress();
 
+        this.repositories.clear();
+
         if(repositories.isEmpty()){
+
+            view.hideLoadMoreButton();
+
+            view.showRepositories();
+
+            view.removeFooterView();
 
             //tell the view that there are no more results.
             view.showNoContentView();
 
         }else {
 
-            this.repositories.clear();
-
             this.repositories.addAll(repositories);
 
             //hide the no content text view.
             view.hideNoContentView();
+
+            view.addFooterView();
 
             //show the new repositories in the view.
             view.showRepositories();
