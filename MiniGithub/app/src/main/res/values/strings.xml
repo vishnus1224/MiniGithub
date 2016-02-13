@@ -9,4 +9,7 @@
     <string name="string_last_updated">Last Updated</string>
     <string name="string_watcher_count">Watchers</string>
     <string name="string_open_issue_count">Open Issues</string>
+    <string name="string_reporter_header"><![CDATA[<-- Reporter]]></string>
+    <string name="string_state">State : </string>
+    <string name="string_created_date">Created date :</string>
 </resources>
