@@ -16,6 +16,18 @@ public class Repository {
 
     private String language;
 
+    @SerializedName("html_url")
+    private String htmlURL;
+
+    @SerializedName("updated_at")
+    private String updatedAt;
+
+    @SerializedName("watchers_count")
+    private int watchersCount;
+
+    @SerializedName("open_issues_count")
+    private int openIssuesCount;
+
     public int getId() {
         return id;
     }
@@ -46,5 +58,37 @@ public class Repository {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getHtmlURL() {
+        return htmlURL;
+    }
+
+    public void setHtmlURL(String htmlURL) {
+        this.htmlURL = htmlURL;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public int getWatchersCount() {
+        return watchersCount;
+    }
+
+    public void setWatchersCount(int watchersCount) {
+        this.watchersCount = watchersCount;
+    }
+
+    public int getOpenIssuesCount() {
+        return openIssuesCount;
+    }
+
+    public void setOpenIssuesCount(int openIssuesCount) {
+        this.openIssuesCount = openIssuesCount;
     }
 }
