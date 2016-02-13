@@ -1,5 +1,12 @@
 package com.vishnus1224.minigithub.interactor;
 
+import com.vishnus1224.minigithub.manager.WebServiceManager;
+import com.vishnus1224.minigithub.model.IssueContainer;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 /**
  * Created by Vishnu on 2/13/2016.
  */
@@ -45,7 +52,54 @@ public class IssueInteractorImpl implements IssueInteractor {
 
     private void searchIssues(String issueName) {
 
+        //get the webservice and make the search issues call
+        Call<IssueContainer> call = WebServiceManager.getWebService().searchIssues(issueName, pageNumber, RESULTS_PER_PAGE);
+
+        //fetch on a background thread and pass a callback.
+        call.enqueue(callback);
+
     }
+
+    private Callback<IssueContainer> callback = new Callback<IssueContainer>() {
+        @Override
+        public void onResponse(Call<IssueContainer> call, Response<IssueContainer> response) {
+
+            if(response.isSuccess()){
+
+                //call the success method on the listener.
+                if(issueInteractionListener != null){
+
+                    issueInteractionListener.onSuccess(response.body().getIssueList());
+
+                }
+
+            }else{
+
+                checkLoadMoreCondition();
+
+                if(issueInteractionListener != null){
+
+                    issueInteractionListener.onFailure(response.message());
+
+                }
+
+            }
+
+        }
+
+        @Override
+        public void onFailure(Call<IssueContainer> call, Throwable t) {
+
+            checkLoadMoreCondition();
+
+            if(issueInteractionListener != null){
+
+                issueInteractionListener.onFailure(t.getMessage());
+
+            }
+
+        }
+    };
 
 
     //decrease the page number by 1 if load more is true.

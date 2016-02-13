@@ -12,7 +12,7 @@ public class IssueContainer {
     @SerializedName("items")
     private List<Issue> issueList;
 
-    private List<Issue> getIssueList(){
+    public List<Issue> getIssueList(){
         return issueList;
     }
 }
