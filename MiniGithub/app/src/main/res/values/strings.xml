@@ -4,4 +4,5 @@
     <string name="action_search_hint">Enter the text to search </string>
     <string name="no_content_message">No Content To Display. \n Enter keyword to search in the search bar above.</string>
     <string name="string_load_more">Load More</string>
+    <string name="title_activity_repository_detail">RepositoryDetailActivity</string>
 </resources>
