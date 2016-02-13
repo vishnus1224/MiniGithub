@@ -189,8 +189,6 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView, 
         //notify the adapter.
         repositoryListAdapter.notifyDataSetChanged();
 
-        addFooterView();
-
     }
 
     @Override
