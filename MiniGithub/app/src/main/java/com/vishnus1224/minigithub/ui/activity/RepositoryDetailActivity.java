@@ -8,6 +8,7 @@ import com.vishnus1224.minigithub.R;
 import com.vishnus1224.minigithub.model.Repository;
 import com.vishnus1224.minigithub.utility.Utils;
 
+
 public class RepositoryDetailActivity extends AppCompatActivity {
 
     private TextView repositoryTitleTextView;
@@ -71,7 +72,7 @@ public class RepositoryDetailActivity extends AppCompatActivity {
 
         repositoryLanguageTextView.setText(repository.getLanguage());
 
-        repositoryUpdateDateTextView.setText(repository.getUpdatedAt());
+        repositoryUpdateDateTextView.setText(Utils.formatDate(repository.getUpdatedAt(), Utils.githubDateFormat, Utils.appDateFormat));
 
         repositoryWatcherCountTextView.setText("" + repository.getWatchersCount());
 
