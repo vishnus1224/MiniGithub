@@ -7,6 +7,7 @@ import com.vishnus1224.minigithub.listener.LoadMoreRepositoriesListener;
 import com.vishnus1224.minigithub.model.Repository;
 import com.vishnus1224.minigithub.ui.view.BaseView;
 import com.vishnus1224.minigithub.ui.view.RepositoryView;
+import com.vishnus1224.minigithub.utility.Utils;
 
 import java.util.List;
 
@@ -121,7 +122,7 @@ public class RepositoryPresenter implements Presenter {
         }
 
         //if the last searched keyword and the new one are same.
-        if(keywordsAreSame(repositoryName)){
+        if(Utils.areStringsEqual(lastSearchKeyword, repositoryName)){
 
             if(repositories.isEmpty()){
 
@@ -152,13 +153,6 @@ public class RepositoryPresenter implements Presenter {
         view.showProgress();
 
         repositoryInteractor.fetchRepositories(repositoryName, fetchRepositoriesListener);
-
-    }
-
-
-    private boolean keywordsAreSame(String repositoryName) {
-
-        return lastSearchKeyword.equals(repositoryName);
 
     }
 
