@@ -147,6 +147,8 @@ public class IssueFragment extends BaseFragment implements AdapterView.OnItemCli
     @Override
     public void fetchData(String searchKeyword) {
 
+        issuePresenter.searchIssues(searchKeyword);
+
     }
 
     private final View.OnClickListener loadMoreClickListener = new View.OnClickListener() {
