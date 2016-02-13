@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vishnus1224.minigithub.R;
+import com.vishnus1224.minigithub.listener.ImageLoaderListener;
 import com.vishnus1224.minigithub.model.Issue;
 import com.vishnus1224.minigithub.utility.Utils;
 
@@ -20,11 +21,13 @@ public class IssueListAdapter extends BaseAdapter {
 
     private LayoutInflater layoutInflater;
     private List<Issue> issueList;
+    private ImageLoaderListener imageLoaderListener;
 
-    public IssueListAdapter(LayoutInflater layoutInflater, List<Issue> issueList){
+    public IssueListAdapter(LayoutInflater layoutInflater, List<Issue> issueList, ImageLoaderListener imageLoaderListener){
 
         this.layoutInflater = layoutInflater;
         this.issueList = issueList;
+        this.imageLoaderListener = imageLoaderListener;
     }
 
     @Override
@@ -65,8 +68,15 @@ public class IssueListAdapter extends BaseAdapter {
 
         issueStateTextView.setText(issue.getState());
 
+        if(imageLoaderListener != null){
+
+            imageLoaderListener.loadImage(reporterAvatarImageView, issue.getReporter().getAvatarURL());
+
+        }
+
         issueCreatedDateTextView.setText(Utils.formatDate(issue.getCreatedAt(), Utils.githubDateFormat, Utils.appDateFormat));
 
         return view;
     }
+
 }

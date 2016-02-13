@@ -8,12 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.vishnus1224.minigithub.R;
+import com.vishnus1224.minigithub.listener.ImageLoaderListener;
 import com.vishnus1224.minigithub.listener.NavigationListener;
 import com.vishnus1224.minigithub.model.Issue;
 import com.vishnus1224.minigithub.ui.adapter.IssueListAdapter;
@@ -26,7 +29,10 @@ import java.util.List;
 /**
  * Created by Vishnu on 2/6/2016.
  */
-public class IssueFragment extends BaseFragment implements AdapterView.OnItemClickListener, IssueView {
+public class IssueFragment extends BaseFragment implements AdapterView.OnItemClickListener, IssueView, ImageLoaderListener {
+
+    private static final int IMAGE_WIDTH = 100;
+    private static final int IMAGE_HEIGHT = 100;
 
     private ListView issueListView;
     private IssueListAdapter issueListAdapter;
@@ -122,7 +128,7 @@ public class IssueFragment extends BaseFragment implements AdapterView.OnItemCli
 
     private void setListViewAdapter() {
 
-        issueListAdapter = new IssueListAdapter(LayoutInflater.from(getActivity()), issueList);
+        issueListAdapter = new IssueListAdapter(LayoutInflater.from(getActivity()), issueList, this);
 
         issueListView.setAdapter(issueListAdapter);
     }
@@ -257,5 +263,12 @@ public class IssueFragment extends BaseFragment implements AdapterView.OnItemCli
             Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
 
         }
+    }
+
+    @Override
+    public void loadImage(ImageView imageView, String imageURL) {
+
+        Picasso.with(getActivity()).load(imageURL).resize(IMAGE_WIDTH, IMAGE_HEIGHT).into(imageView);
+
     }
 }
