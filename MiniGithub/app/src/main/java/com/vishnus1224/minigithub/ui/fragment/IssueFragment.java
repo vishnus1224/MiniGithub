@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vishnus1224.minigithub.R;
 import com.vishnus1224.minigithub.listener.NavigationListener;
@@ -155,6 +156,8 @@ public class IssueFragment extends BaseFragment implements AdapterView.OnItemCli
         @Override
         public void onClick(View view) {
 
+            issuePresenter.loadMoreIssues();
+
         }
     };
 
@@ -166,60 +169,93 @@ public class IssueFragment extends BaseFragment implements AdapterView.OnItemCli
     @Override
     public void showIssues() {
 
+        issueListAdapter.notifyDataSetChanged();
+
     }
 
     @Override
     public void hideNoContentView() {
+
+        noContentTextView.setVisibility(View.INVISIBLE);
 
     }
 
     @Override
     public void showNoContentView() {
 
+        noContentTextView.setVisibility(View.VISIBLE);
+
     }
 
     @Override
     public void addFooterView() {
 
+        //Add footer view if one does not already exist.
+        if(issueListView.getFooterViewsCount() == 0) {
+            issueListView.addFooterView(listViewFooter);
+        }
     }
 
     @Override
     public void removeFooterView() {
 
+        if(listViewFooter != null && issueListView.getFooterViewsCount() > 0){
+
+            issueListView.removeFooterView(listViewFooter);
+
+        }
     }
 
     @Override
     public void showFooterProgress() {
+
+        footerProgressBar.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public void hideFooterProgress() {
 
+        footerProgressBar.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
     public void showLoadMoreButton() {
+
+        loadMoreButton.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public void hideLoadMoreButton() {
 
+        loadMoreButton.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
     public void showProgress() {
+
+        progressBar.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public void hideProgress() {
 
+        progressBar.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
     public void showError(String message) {
 
+        //Show a toast with the error message if the activity is not destroyed.
+        if(getActivity() != null){
+
+            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+
+        }
     }
 }
