@@ -1,12 +1,11 @@
 package com.vishnus1224.minigithub.ui.view;
 
 /**
- * Created by Vishnu on 2/6/2016.
+ * Created by Vishnu on 2/13/2016.
  */
-public interface RepositoryView extends BaseView {
+public interface IssueView extends BaseView {
 
-    //update the ui by notifying the adapter.
-    void showRepositories();
+    void showIssues();
 
     void hideNoContentView();
 
@@ -23,5 +22,4 @@ public interface RepositoryView extends BaseView {
     void showLoadMoreButton();
 
     void hideLoadMoreButton();
-
 }

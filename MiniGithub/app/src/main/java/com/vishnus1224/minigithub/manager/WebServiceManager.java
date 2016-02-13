@@ -6,9 +6,9 @@ import com.vishnus1224.minigithub.webservice.GithubService;
 /**
  * Created by Vishnu on 2/7/2016.
  */
-public final class RepositoryManager {
+public final class WebServiceManager {
 
-    private RepositoryManager(){
+    private WebServiceManager(){
 
     }
 

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/value_10dp">
+
+    <TextView
+        android:id="@+id/adapterIssueTitle"
+        android:text="Title"
+        android:textStyle="bold"
+        android:singleLine="true"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/adapterIssueReporterAvatar"
+        android:layout_below="@id/adapterIssueTitle"
+        android:layout_width="@dimen/value_100dp"
+        android:layout_height="@dimen/value_100dp" />
+
+    <TextView
+        android:id="@+id/adapterIssueReporterHeader"
+        android:layout_toRightOf="@id/adapterIssueReporterAvatar"
+        android:text="@string/string_reporter_header"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/value_10dp"
+        android:layout_marginLeft="@dimen/value_10dp"
+        android:layout_alignTop="@id/adapterIssueReporterAvatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/adapterIssueReporter"
+        android:layout_alignTop="@id/adapterIssueReporterHeader"
+        android:layout_toRightOf="@id/adapterIssueReporterHeader"
+        android:singleLine="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/adapterIssueStateHeader"
+        android:layout_below="@id/adapterIssueReporterHeader"
+        android:layout_alignLeft="@id/adapterIssueReporterHeader"
+        android:layout_marginTop="@dimen/value_10dp"
+        android:textStyle="bold"
+        android:text="@string/string_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/adapterIssueState"
+        android:layout_toRightOf="@id/adapterIssueStateHeader"
+        android:layout_alignTop="@id/adapterIssueStateHeader"
+        android:background="#03f7f8"
+        android:textStyle="italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/adapterIssueCreatedDateHeader"
+        android:text="@string/string_created_date"
+        android:layout_marginTop="@dimen/value_10dp"
+        android:textStyle="bold"
+        android:layout_below="@id/adapterIssueStateHeader"
+        android:layout_alignLeft="@id/adapterIssueStateHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/adapterIssueCreatedDate"
+        android:layout_toRightOf="@id/adapterIssueCreatedDateHeader"
+        android:layout_alignTop="@id/adapterIssueCreatedDateHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

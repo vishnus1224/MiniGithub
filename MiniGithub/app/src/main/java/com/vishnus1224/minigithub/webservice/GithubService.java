@@ -1,13 +1,10 @@
 package com.vishnus1224.minigithub.webservice;
 
-import com.vishnus1224.minigithub.model.Repository;
+import com.vishnus1224.minigithub.model.IssueContainer;
 import com.vishnus1224.minigithub.model.RepositoryContainer;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -19,4 +16,7 @@ public interface GithubService {
 
     @GET("search/repositories")
     Call<RepositoryContainer> fetchRepositories(@Query("q") String repositoryName,@Query("page") int pageNumber, @Query("per_page") int resultsPerPage);
+
+    @GET("search/issues")
+    Call<IssueContainer> searchIssues(@Query("q") String issueName, @Query("page") int pageNumber, @Query("per_page") int resultsPerPage);
 }

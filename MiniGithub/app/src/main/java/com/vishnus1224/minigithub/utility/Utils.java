@@ -43,4 +43,10 @@ public final class Utils {
         return null;
     }
 
+    public static boolean areStringsEqual(String firstString, String secondString){
+
+        return firstString.equals(secondString);
+
+    }
+
 }

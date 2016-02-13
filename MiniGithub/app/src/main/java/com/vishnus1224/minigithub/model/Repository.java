@@ -138,16 +138,4 @@ public class Repository implements Parcelable{
         parcel.writeInt(watchersCount);
         parcel.writeInt(openIssuesCount);
     }
-
-    public static final Parcelable.Creator<Repository> REPOSITORY_CREATOR = new Creator<Repository>() {
-        @Override
-        public Repository createFromParcel(Parcel parcel) {
-            return new Repository(parcel);
-        }
-
-        @Override
-        public Repository[] newArray(int i) {
-            return new Repository[i];
-        }
-    };
 }
