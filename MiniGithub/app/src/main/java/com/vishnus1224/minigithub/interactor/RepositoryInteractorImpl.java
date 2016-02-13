@@ -1,10 +1,7 @@
 package com.vishnus1224.minigithub.interactor;
 
-import com.vishnus1224.minigithub.manager.RepositoryManager;
-import com.vishnus1224.minigithub.model.Repository;
+import com.vishnus1224.minigithub.manager.WebServiceManager;
 import com.vishnus1224.minigithub.model.RepositoryContainer;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,7 +52,7 @@ public class RepositoryInteractorImpl implements RepositoryInteractor {
     private void fetchRepositories(String repositoryName){
 
         //get the webservice and make the fetch repositories call
-        Call<RepositoryContainer> call = RepositoryManager.getWebService().fetchRepositories(repositoryName, pageNumber, RESULTS_PER_PAGE);
+        Call<RepositoryContainer> call = WebServiceManager.getWebService().fetchRepositories(repositoryName, pageNumber, RESULTS_PER_PAGE);
 
         //fetch on a background thread and pass a callback.
         call.enqueue(callback);
