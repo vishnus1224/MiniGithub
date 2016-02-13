@@ -1,10 +1,12 @@
 package com.vishnus1224.minigithub.ui.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vishnus1224.minigithub.R;
+import com.vishnus1224.minigithub.listener.NavigationListener;
 import com.vishnus1224.minigithub.model.Repository;
 import com.vishnus1224.minigithub.ui.adapter.RepositoryListAdapter;
 import com.vishnus1224.minigithub.ui.presenter.RepositoryPresenter;
@@ -23,7 +26,7 @@ import java.util.List;
 /**
  * Created by Vishnu on 2/6/2016.
  */
-public class RepositoryFragment extends BaseFragment implements RepositoryView {
+public class RepositoryFragment extends BaseFragment implements RepositoryView, AdapterView.OnItemClickListener {
 
     private ListView repositoryListView;
     private RepositoryListAdapter repositoryListAdapter;
@@ -42,6 +45,8 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
 
     private List<Repository> repositoryList = new ArrayList<>();
 
+    private NavigationListener navigationListener;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,9 +57,26 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
 
         setListViewAdapter();
 
+        setListItemClickListener();
+
         setupListViewFooter();
 
         return view;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try{
+
+            navigationListener = (NavigationListener) activity;
+
+        }catch (ClassCastException e){
+
+            throw new ClassCastException(activity.toString() + " must implement Navigation Listener");
+        }
+
     }
 
     @Override
@@ -106,6 +128,15 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
 
         repositoryListView.setAdapter(repositoryListAdapter);
     }
+
+
+
+    private void setListItemClickListener() {
+
+        repositoryListView.setOnItemClickListener(this);
+
+    }
+
 
     private void setupListViewFooter() {
 
@@ -248,4 +279,14 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView {
         }
     };
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+        if(navigationListener != null){
+
+            navigationListener.navigateToRepositoryDetail(repositoryList.get(i));
+
+        }
+
+    }
 }

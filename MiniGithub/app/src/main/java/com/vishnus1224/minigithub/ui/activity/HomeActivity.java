@@ -16,17 +16,20 @@ import android.widget.SearchView;
 import com.vishnus1224.minigithub.R;
 import com.vishnus1224.minigithub.config.TabConfig;
 import com.vishnus1224.minigithub.generator.FragmentGenerator;
+import com.vishnus1224.minigithub.listener.NavigationListener;
+import com.vishnus1224.minigithub.model.Repository;
 import com.vishnus1224.minigithub.ui.adapter.MainTabsPagerAdapter;
 import com.vishnus1224.minigithub.ui.fragment.BaseFragment;
 import com.vishnus1224.minigithub.ui.fragment.CodeFragment;
 import com.vishnus1224.minigithub.ui.fragment.IssueFragment;
 import com.vishnus1224.minigithub.ui.fragment.RepositoryFragment;
 import com.vishnus1224.minigithub.ui.fragment.UserFragment;
+import com.vishnus1224.minigithub.utility.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelectedListener {
+public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelectedListener, NavigationListener {
 
     private TabLayout homeTabLayout;
 
@@ -41,7 +44,7 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
 
         setupViews();
 
@@ -211,4 +214,10 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
 
     }
 
+    @Override
+    public void navigateToRepositoryDetail(Repository repository) {
+
+        navigator.navigateToActivity(this, RepositoryDetailActivity.class, repository, Utils.KEY_REPOSITORY);
+
+    }
 }
