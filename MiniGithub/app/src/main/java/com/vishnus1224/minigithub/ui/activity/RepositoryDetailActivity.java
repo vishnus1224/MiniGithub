@@ -9,7 +9,7 @@ import com.vishnus1224.minigithub.model.Repository;
 import com.vishnus1224.minigithub.utility.Utils;
 
 
-public class RepositoryDetailActivity extends AppCompatActivity {
+public class RepositoryDetailActivity extends BaseActivity {
 
     private TextView repositoryTitleTextView;
     private TextView repositoryDescTextView;
