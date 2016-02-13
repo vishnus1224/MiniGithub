@@ -1,7 +1,5 @@
 package com.vishnus1224.minigithub.ui.presenter;
 
-import android.text.TextUtils;
-
 import com.vishnus1224.minigithub.interactor.RepositoryInteractor;
 import com.vishnus1224.minigithub.interactor.RepositoryInteractorImpl;
 import com.vishnus1224.minigithub.listener.FetchRepositoriesListener;
