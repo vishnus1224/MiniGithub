@@ -54,14 +54,16 @@ public class RepositoryDetailActivity extends AppCompatActivity {
             repository = (Repository) extra.get(Utils.KEY_REPOSITORY);
 
             if(repository != null) {
-                setDataToViews(repository);
+
+                displayRepositoryDetails(repository);
+
             }
 
         }
 
     }
 
-    private void setDataToViews(Repository repository) {
+    private void displayRepositoryDetails(Repository repository) {
 
         repositoryTitleTextView.setText(repository.getName());
 
