@@ -1,8 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/value_10dp">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/repoDetailTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textSize="@dimen/value_20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/repoDetailDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/value_20sp"
+            android:layout_marginTop="@dimen/value_10dp"
+            android:layout_below="@id/repoDetailTitle"
+            android:gravity="center" />
+
+        <RelativeLayout
+            android:id="@+id/repoDetailLangUpdateContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/value_10dp"
+            android:layout_below="@id/repoDetailDescription">
+
+            <TextView
+                android:id="@+id/separatorLanguage"
+                android:layout_width="@dimen/value_10dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:text=" | "
+                android:textSize="@dimen/value_20sp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/repoDetailLanguage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/separatorLanguage"
+                android:gravity="center"
+                android:singleLine="true" />
+
+
+            <TextView
+                android:id="@+id/repoDetailLanguageHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/repoDetailLanguage"
+                android:layout_toLeftOf="@id/separatorLanguage"
+                android:gravity="center"
+                android:text="@string/string_language" />
+
+
+            <TextView
+                android:id="@+id/repoDetailUpdateDate"
+                android:layout_toRightOf="@id/separatorLanguage"
+                android:singleLine="true"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/repoDetailUpdateDateHeader"
+                android:layout_below="@id/repoDetailUpdateDate"
+                android:layout_toRightOf="@id/separatorLanguage"
+                android:text="@string/string_last_updated"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/repoDetailWatcherIssuesContainer"
+            android:layout_below="@id/repoDetailLangUpdateContainer"
+            android:layout_marginTop="@dimen/value_10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/separatorWatchers"
+                android:layout_width="@dimen/value_10dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:text=" | "
+                android:textSize="@dimen/value_20sp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/repoDetailWatcherCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/separatorWatchers"
+                android:gravity="center"
+                android:singleLine="true" />
+
+
+            <TextView
+                android:id="@+id/repoDetailWatcherCountHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/repoDetailWatcherCount"
+                android:layout_toLeftOf="@id/separatorWatchers"
+                android:gravity="center"
+                android:text="@string/string_watcher_count" />
+
+
+            <TextView
+                android:id="@+id/repoDetailOpenIssueCount"
+                android:layout_toRightOf="@id/separatorWatchers"
+                android:singleLine="true"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/repoDetailOpenIssueCountHeader"
+                android:layout_below="@id/repoDetailOpenIssueCount"
+                android:layout_toRightOf="@id/separatorWatchers"
+                android:text="@string/string_open_issue_count"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/repoDetailHtmlURL"
+            android:layout_marginTop="@dimen/value_10dp"
+            android:linksClickable="true"
+            android:autoLink="web"
+            android:gravity="center"
+            android:layout_below="@id/repoDetailWatcherIssuesContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
+
+</ScrollView>
 
