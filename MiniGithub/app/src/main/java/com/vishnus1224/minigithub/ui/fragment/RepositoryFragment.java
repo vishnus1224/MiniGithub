@@ -227,20 +227,6 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView, 
     }
 
     @Override
-    public void enableLoadMoreButton() {
-
-        loadMoreButton.setEnabled(true);
-
-    }
-
-    @Override
-    public void disableLoadMoreButton() {
-
-        loadMoreButton.setEnabled(false);
-
-    }
-
-    @Override
     public void showFooterProgress() {
 
         footerProgressBar.setVisibility(View.VISIBLE);

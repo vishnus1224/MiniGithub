@@ -20,10 +20,6 @@ public interface RepositoryView extends BaseView {
 
     void removeFooterView();
 
-    void enableLoadMoreButton();
-
-    void disableLoadMoreButton();
-
     void showFooterProgress();
 
     void hideFooterProgress();
