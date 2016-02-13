@@ -15,9 +15,8 @@ import android.widget.TextView;
 import com.vishnus1224.minigithub.R;
 import com.vishnus1224.minigithub.listener.NavigationListener;
 import com.vishnus1224.minigithub.model.Issue;
-import com.vishnus1224.minigithub.model.Repository;
 import com.vishnus1224.minigithub.ui.adapter.IssueListAdapter;
-import com.vishnus1224.minigithub.ui.adapter.RepositoryListAdapter;
+import com.vishnus1224.minigithub.ui.presenter.IssuePresenter;
 import com.vishnus1224.minigithub.ui.view.IssueView;
 
 import java.util.ArrayList;
@@ -42,6 +41,8 @@ public class IssueFragment extends BaseFragment implements AdapterView.OnItemCli
     private ProgressBar footerProgressBar;
 
     private List<Issue> issueList = new ArrayList<>();
+
+    private IssuePresenter issuePresenter = new IssuePresenter();
 
     private NavigationListener navigationListener;
 
@@ -80,24 +81,33 @@ public class IssueFragment extends BaseFragment implements AdapterView.OnItemCli
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        issuePresenter.init(this);
+
+        issuePresenter.setIssueList(issueList);
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
+        issuePresenter.resume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
 
+        issuePresenter.pause();
+
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        
+
+        issuePresenter.destroy();
+
     }
 
     private void setupViews(View view) {
