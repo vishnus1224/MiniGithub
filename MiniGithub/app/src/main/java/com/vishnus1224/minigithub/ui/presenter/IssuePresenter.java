@@ -2,6 +2,8 @@ package com.vishnus1224.minigithub.ui.presenter;
 
 import com.vishnus1224.minigithub.interactor.IssueInteractor;
 import com.vishnus1224.minigithub.interactor.IssueInteractorImpl;
+import com.vishnus1224.minigithub.listener.FetchIssuesListener;
+import com.vishnus1224.minigithub.listener.LoadMoreIssuesListener;
 import com.vishnus1224.minigithub.model.Issue;
 import com.vishnus1224.minigithub.ui.view.BaseView;
 import com.vishnus1224.minigithub.ui.view.IssueView;
@@ -33,6 +35,12 @@ public class IssuePresenter implements Presenter {
 
     private IssueInteractor issueInteractor = new IssueInteractorImpl();
 
+    //listener for getting callback when issue fetch is completed.
+    private FetchIssuesListener fetchIssuesListener;
+
+    //listener for getting callback when load more issues call is completed.
+    private LoadMoreIssuesListener loadMoreIssuesListener;
+
     public void setIssueList(List<Issue> issueList) {
         this.issueList = issueList;
     }
@@ -45,6 +53,10 @@ public class IssuePresenter implements Presenter {
         }
 
         issueView = (IssueView) view;
+
+        fetchIssuesListener = new FetchIssuesListener(this);
+
+        loadMoreIssuesListener = new LoadMoreIssuesListener(this);
 
     }
 
@@ -85,6 +97,9 @@ public class IssuePresenter implements Presenter {
     @Override
     public void destroy() {
 
+        fetchIssuesListener = null;
+
+        loadMoreIssuesListener = null;
     }
 
     //Search for the specified issue name.
@@ -129,6 +144,8 @@ public class IssuePresenter implements Presenter {
 
         issueView.showProgress();
 
+        issueInteractor.fetchIssues(issueName, fetchIssuesListener);
+
     }
 
     //load more issues for the current search keyword.
@@ -147,6 +164,8 @@ public class IssuePresenter implements Presenter {
         issueView.showFooterProgress();
 
         loadingMore = true;
+
+        issueInteractor.loadMoreIssues(lastSearchKeyword, loadMoreIssuesListener);
 
     }
 
