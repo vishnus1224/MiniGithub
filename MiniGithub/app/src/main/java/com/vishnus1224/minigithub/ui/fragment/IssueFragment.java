@@ -18,6 +18,7 @@ import com.vishnus1224.minigithub.model.Issue;
 import com.vishnus1224.minigithub.model.Repository;
 import com.vishnus1224.minigithub.ui.adapter.IssueListAdapter;
 import com.vishnus1224.minigithub.ui.adapter.RepositoryListAdapter;
+import com.vishnus1224.minigithub.ui.view.IssueView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.List;
 /**
  * Created by Vishnu on 2/6/2016.
  */
-public class IssueFragment extends BaseFragment implements AdapterView.OnItemClickListener {
+public class IssueFragment extends BaseFragment implements AdapterView.OnItemClickListener, IssueView {
 
     private ListView issueListView;
     private IssueListAdapter issueListAdapter;
@@ -78,6 +79,24 @@ public class IssueFragment extends BaseFragment implements AdapterView.OnItemCli
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         
     }
 
@@ -129,6 +148,66 @@ public class IssueFragment extends BaseFragment implements AdapterView.OnItemCli
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void showIssues() {
+
+    }
+
+    @Override
+    public void hideNoContentView() {
+
+    }
+
+    @Override
+    public void showNoContentView() {
+
+    }
+
+    @Override
+    public void addFooterView() {
+
+    }
+
+    @Override
+    public void removeFooterView() {
+
+    }
+
+    @Override
+    public void showFooterProgress() {
+
+    }
+
+    @Override
+    public void hideFooterProgress() {
+
+    }
+
+    @Override
+    public void showLoadMoreButton() {
+
+    }
+
+    @Override
+    public void hideLoadMoreButton() {
+
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void showError(String message) {
 
     }
 }
