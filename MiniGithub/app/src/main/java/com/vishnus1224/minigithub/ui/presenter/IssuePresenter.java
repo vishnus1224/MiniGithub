@@ -225,7 +225,7 @@ public class IssuePresenter implements Presenter {
 
         if(issues.isEmpty()){
 
-            issueView.showError("No more repositories found");
+            issueView.showError("No more issues found");
 
         }else{
 
