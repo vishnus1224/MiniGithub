@@ -1,5 +1,7 @@
 package com.vishnus1224.minigithub.ui.presenter;
 
+import com.vishnus1224.minigithub.interactor.IssueInteractor;
+import com.vishnus1224.minigithub.interactor.IssueInteractorImpl;
 import com.vishnus1224.minigithub.model.Issue;
 import com.vishnus1224.minigithub.ui.view.BaseView;
 import com.vishnus1224.minigithub.ui.view.IssueView;
@@ -28,6 +30,8 @@ public class IssuePresenter implements Presenter {
 
     //Name of the issue being searched.
     private String currentIssueName;
+
+    private IssueInteractor issueInteractor = new IssueInteractorImpl();
 
     public void setIssueList(List<Issue> issueList) {
         this.issueList = issueList;
@@ -125,6 +129,107 @@ public class IssuePresenter implements Presenter {
 
         issueView.showProgress();
 
+    }
 
+    //load more issues for the current search keyword.
+    public void loadMoreIssues(){
+
+        if(searchInProgress){
+
+            issueView.showError("Search is in progress");
+
+            return;
+
+        }
+
+        issueView.hideLoadMoreButton();
+
+        issueView.showFooterProgress();
+
+        loadingMore = true;
+
+    }
+
+    //Fetched issues successfully.
+    public void issueSearchSuccess(List<Issue> issues){
+
+        searchInProgress = false;
+
+        lastSearchKeyword = currentIssueName;
+
+        issueView.hideProgress();
+
+        issueList.clear();
+
+        if(issues.isEmpty()){
+
+            issueView.showIssues();
+
+            issueView.removeFooterView();
+
+            //tell the view that there are no more results.
+            issueView.showNoContentView();
+
+        }else {
+
+            issueList.addAll(issues);
+
+            //hide the no content text view.
+            issueView.hideNoContentView();
+
+            //show the new issues in the view.
+            issueView.showIssues();
+
+            issueView.addFooterView();
+
+        }
+    }
+
+    //Failed to fetch issues.
+    public void issueSearchFailed(String message){
+
+        searchInProgress = false;
+
+        issueView.hideProgress();
+
+        issueView.showError(message);
+
+        if(issueList.isEmpty()) {
+            issueView.showNoContentView();
+        }
+    }
+
+    //successfully loaded more issues for the current search term.
+    public void loadMoreIssuesSuccess(List<Issue> issues){
+
+        loadingMore = false;
+
+        if(issues.isEmpty()){
+
+            issueView.showError("No more repositories found");
+
+        }else{
+
+            issueList.addAll(issues);
+
+            issueView.showIssues();
+
+        }
+
+        issueView.hideFooterProgress();
+
+        issueView.showLoadMoreButton();
+    }
+
+    //failed to load more issues for the current keyword.
+    public void loadMoreIssuesFailure(String message){
+
+        loadingMore = false;
+
+        issueView.showError(message);
+
+        issueView.hideFooterProgress();
+
+        issueView.showLoadMoreButton();
     }
 }
