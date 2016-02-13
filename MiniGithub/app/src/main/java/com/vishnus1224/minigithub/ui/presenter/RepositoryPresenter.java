@@ -177,8 +177,6 @@ public class RepositoryPresenter implements Presenter {
 
         if(repositories.isEmpty()){
 
-            view.hideLoadMoreButton();
-
             view.showRepositories();
 
             view.removeFooterView();
@@ -193,10 +191,10 @@ public class RepositoryPresenter implements Presenter {
             //hide the no content text view.
             view.hideNoContentView();
 
-            view.addFooterView();
-
             //show the new repositories in the view.
             view.showRepositories();
+
+            view.addFooterView();
 
         }
     }
