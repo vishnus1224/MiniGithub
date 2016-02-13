@@ -58,6 +58,8 @@ public class IssueListAdapter extends BaseAdapter {
 
         ImageView reporterAvatarImageView = (ImageView) view.findViewById(R.id.adapterIssueReporterAvatar);
 
+        TextView issueReporterTextView = (TextView) view.findViewById(R.id.adapterIssueReporter);
+
         TextView issueStateTextView = (TextView) view.findViewById(R.id.adapterIssueState);
 
         TextView issueCreatedDateTextView = (TextView) view.findViewById(R.id.adapterIssueCreatedDate);
@@ -65,6 +67,8 @@ public class IssueListAdapter extends BaseAdapter {
         Issue issue = issueList.get(i);
 
         issueTitleTextView.setText(issue.getTitle());
+
+        issueReporterTextView.setText(issue.getReporter().getUsername());
 
         issueStateTextView.setText(issue.getState());
 
