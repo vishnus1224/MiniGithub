@@ -1,11 +1,14 @@
 package com.vishnus1224.minigithub.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by Vishnu on 2/6/2016.
  */
-public class Repository {
+public class Repository implements Parcelable{
 
     private int id;
 
@@ -27,6 +30,33 @@ public class Repository {
 
     @SerializedName("open_issues_count")
     private int openIssuesCount;
+
+    public Repository(){
+
+    }
+
+    protected Repository(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        description = in.readString();
+        language = in.readString();
+        htmlURL = in.readString();
+        updatedAt = in.readString();
+        watchersCount = in.readInt();
+        openIssuesCount = in.readInt();
+    }
+
+    public static final Creator<Repository> CREATOR = new Creator<Repository>() {
+        @Override
+        public Repository createFromParcel(Parcel in) {
+            return new Repository(in);
+        }
+
+        @Override
+        public Repository[] newArray(int size) {
+            return new Repository[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -91,4 +121,33 @@ public class Repository {
     public void setOpenIssuesCount(int openIssuesCount) {
         this.openIssuesCount = openIssuesCount;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeString(description);
+        parcel.writeString(language);
+        parcel.writeString(htmlURL);
+        parcel.writeString(updatedAt);
+        parcel.writeInt(watchersCount);
+        parcel.writeInt(openIssuesCount);
+    }
+
+    public static final Parcelable.Creator<Repository> REPOSITORY_CREATOR = new Creator<Repository>() {
+        @Override
+        public Repository createFromParcel(Parcel parcel) {
+            return new Repository(parcel);
+        }
+
+        @Override
+        public Repository[] newArray(int i) {
+            return new Repository[i];
+        }
+    };
 }
