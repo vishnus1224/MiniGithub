@@ -1,7 +1,6 @@
 package com.vishnus1224.minigithub.ui.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.vishnus1224.minigithub.R;
