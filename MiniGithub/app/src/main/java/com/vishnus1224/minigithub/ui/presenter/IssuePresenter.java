@@ -124,8 +124,6 @@ public class IssuePresenter implements Presenter {
 
                 //if issue list is not empty, then do not search.
 
-                issueView.showError("Results are shown for the current search query");
-
                 issueView.addFooterView();
 
             }

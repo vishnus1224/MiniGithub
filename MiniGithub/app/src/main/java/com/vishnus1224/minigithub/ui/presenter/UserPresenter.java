@@ -124,8 +124,6 @@ public class UserPresenter implements Presenter {
 
                 //if user list is not empty, then do not search.
 
-                userView.showError("Results are shown for the current search query");
-
                 userView.addFooterView();
 
             }
