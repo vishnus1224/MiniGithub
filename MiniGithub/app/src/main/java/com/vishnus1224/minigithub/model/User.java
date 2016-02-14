@@ -18,10 +18,13 @@ public class User implements Parcelable {
     @SerializedName("avatar_url")
     private String avatarURL;
 
+    private float score;
+
     protected User(Parcel in) {
         id = in.readInt();
         username = in.readString();
         avatarURL = in.readString();
+        score = in.readFloat();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -60,6 +63,14 @@ public class User implements Parcelable {
         this.avatarURL = avatarURL;
     }
 
+    public float getScore() {
+        return score;
+    }
+
+    public void setScore(float score) {
+        this.score = score;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -70,5 +81,6 @@ public class User implements Parcelable {
         parcel.writeInt(id);
         parcel.writeString(username);
         parcel.writeString(avatarURL);
+        parcel.writeFloat(score);
     }
 }

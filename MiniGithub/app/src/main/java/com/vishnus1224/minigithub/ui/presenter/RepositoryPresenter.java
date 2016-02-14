@@ -132,8 +132,6 @@ public class RepositoryPresenter implements Presenter {
 
                 //if repositories are not empty, then do not search.
 
-                view.showError("Results are shown for the current search query");
-
                 view.addFooterView();
 
             }

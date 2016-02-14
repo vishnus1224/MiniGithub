@@ -63,7 +63,7 @@ public class IssuePresenter implements Presenter {
     @Override
     public void resume() {
 
-        //hide the no content view is issue list is not empty.
+        //hide the no content view if issue list is not empty.
         if(!issueList.isEmpty()){
 
             issueView.hideNoContentView();
@@ -123,8 +123,6 @@ public class IssuePresenter implements Presenter {
             }else{
 
                 //if issue list is not empty, then do not search.
-
-                issueView.showError("Results are shown for the current search query");
 
                 issueView.addFooterView();
 

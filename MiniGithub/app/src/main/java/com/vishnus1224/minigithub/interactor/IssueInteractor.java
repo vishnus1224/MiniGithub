@@ -23,7 +23,7 @@ public interface IssueInteractor {
      */
     void loadMoreIssues(String issueName, IssueInteractionListener issueInteractionListener);
 
-    public interface IssueInteractionListener{
+    interface IssueInteractionListener{
 
         void onSuccess(List<Issue> issueList);
 
