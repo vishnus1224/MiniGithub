@@ -12,4 +12,6 @@
     <string name="string_reporter_header"><![CDATA[<-- Reported By]]> : \u0020</string>
     <string name="string_state">State : \u0020</string>
     <string name="string_created_date">Created date : \u0020</string>
+    <string name="string_username">Username : \u0020</string>
+    <string name="string_score">Score : \u0020</string>
 </resources>
