@@ -3,7 +3,6 @@ package com.vishnus1224.minigithub.ui.activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -20,7 +19,6 @@ import com.vishnus1224.minigithub.listener.NavigationListener;
 import com.vishnus1224.minigithub.model.Repository;
 import com.vishnus1224.minigithub.ui.adapter.MainTabsPagerAdapter;
 import com.vishnus1224.minigithub.ui.fragment.BaseFragment;
-import com.vishnus1224.minigithub.ui.fragment.CodeFragment;
 import com.vishnus1224.minigithub.ui.fragment.IssueFragment;
 import com.vishnus1224.minigithub.ui.fragment.RepositoryFragment;
 import com.vishnus1224.minigithub.ui.fragment.UserFragment;
@@ -81,22 +79,6 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
         return true;
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-
-            homeTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-
-        }else if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
-
-            homeTabLayout.setTabMode(TabLayout.MODE_FIXED);
-
-        }
-
-    }
-
     private void setupViews() {
 
         homeTabLayout = (TabLayout) findViewById(R.id.homeTabs);
@@ -116,7 +98,7 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
     private void setupTabs(){
 
         //set tab mode to scrollable.
-        homeTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        homeTabLayout.setTabMode(TabLayout.MODE_FIXED);
 
         //setup the tab using the contents of the view pager.
         homeTabLayout.setupWithViewPager(homeTabViewPager);
@@ -170,8 +152,6 @@ public class HomeActivity extends BaseActivity implements TabLayout.OnTabSelecte
         List<Fragment> fragments = new ArrayList<>();
 
         fragments.add(FragmentGenerator.generateFragment(RepositoryFragment.class));
-
-        fragments.add(FragmentGenerator.generateFragment(CodeFragment.class));
 
         fragments.add(FragmentGenerator.generateFragment(IssueFragment.class));
 
