@@ -7,14 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.vishnus1224.minigithub.R;
+import com.vishnus1224.minigithub.listener.ImageLoaderListener;
 import com.vishnus1224.minigithub.listener.NavigationListener;
 import com.vishnus1224.minigithub.model.User;
+import com.vishnus1224.minigithub.ui.adapter.UserListAdapter;
 import com.vishnus1224.minigithub.ui.presenter.UserPresenter;
 import com.vishnus1224.minigithub.ui.view.UserView;
 
@@ -24,9 +28,13 @@ import java.util.List;
 /**
  * Created by Vishnu on 2/6/2016.
  */
-public class UserFragment extends BaseFragment implements UserView {
+public class UserFragment extends BaseFragment implements UserView, ImageLoaderListener {
+    
+    private static final int IMAGE_WIDTH = 100;
+    private static final int IMAGE_HEIGHT = 100;
 
     private ListView userListView;
+    private UserListAdapter userListAdapter;
 
     private ProgressBar progressBar;
 
@@ -52,10 +60,13 @@ public class UserFragment extends BaseFragment implements UserView {
 
         setupViews(view);
 
+        setListViewAdapter();
+
         setupListViewFooter();
 
         return view;
     }
+
 
     @Override
     public void onAttach(Activity activity) {
@@ -107,6 +118,14 @@ public class UserFragment extends BaseFragment implements UserView {
         noContentTextView = (TextView) view.findViewById(R.id.noContentTextView);
     }
 
+    private void setListViewAdapter() {
+
+        userListAdapter = new UserListAdapter(LayoutInflater.from(getActivity()), userList, this);
+
+        userListView.setAdapter(userListAdapter);
+
+    }
+
     private void setupListViewFooter() {
 
         listViewFooter = View.inflate(getActivity(), R.layout.footer_load_more, null);
@@ -138,6 +157,8 @@ public class UserFragment extends BaseFragment implements UserView {
 
     @Override
     public void showUsers() {
+
+        userListAdapter.notifyDataSetChanged();
 
     }
 
@@ -226,5 +247,12 @@ public class UserFragment extends BaseFragment implements UserView {
             Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
 
         }
+    }
+
+    @Override
+    public void loadImage(ImageView imageView, String imageURL) {
+
+        Picasso.with(getActivity()).load(imageURL).resize(IMAGE_WIDTH, IMAGE_HEIGHT).into(imageView);
+
     }
 }
