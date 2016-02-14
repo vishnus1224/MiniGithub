@@ -63,7 +63,7 @@ public class IssuePresenter implements Presenter {
     @Override
     public void resume() {
 
-        //hide the no content view is issue list is not empty.
+        //hide the no content view if issue list is not empty.
         if(!issueList.isEmpty()){
 
             issueView.hideNoContentView();
