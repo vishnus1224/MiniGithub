@@ -12,11 +12,11 @@ public final class TabConfig {
     }
 
     //Total number of tabs.
-    public static final int NUMBER_OF_TABS = 4;
+    public static final int NUMBER_OF_TABS = 3;
 
     //Names for the tabs.
     public static final String[] tabNames = new String[]{
-            "Repositories", "Code", "Issues", "Users"
+            "Repositories", "Issues", "Users"
     };
 
 
