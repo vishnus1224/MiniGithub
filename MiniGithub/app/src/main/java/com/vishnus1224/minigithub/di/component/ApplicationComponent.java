@@ -1,7 +1,5 @@
 package com.vishnus1224.minigithub.di.component;
 
-import android.app.Application;
-
 import com.vishnus1224.minigithub.MiniGithub;
 import com.vishnus1224.minigithub.di.module.ApplicationModule;
 

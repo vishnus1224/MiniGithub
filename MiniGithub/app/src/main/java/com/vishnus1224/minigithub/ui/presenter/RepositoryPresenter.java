@@ -2,7 +2,6 @@ package com.vishnus1224.minigithub.ui.presenter;
 
 import com.vishnus1224.minigithub.di.scope.PerFragment;
 import com.vishnus1224.minigithub.interactor.RepositoryInteractor;
-import com.vishnus1224.minigithub.interactor.RepositoryInteractorImpl;
 import com.vishnus1224.minigithub.listener.FetchRepositoriesListener;
 import com.vishnus1224.minigithub.listener.LoadMoreRepositoriesListener;
 import com.vishnus1224.minigithub.model.Repository;
