@@ -10,7 +10,7 @@ import dagger.Component;
  * Created by Vishnu on 4/20/2016.
  */
 @PerFragment
-@Component(modules = FragmentModule.class)
+@Component(dependencies = NetComponent.class, modules = FragmentModule.class)
 public interface FragmentComponent {
 
     void inject(RepositoryFragment repositoryFragment);
