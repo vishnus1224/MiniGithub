@@ -65,7 +65,9 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView, 
         //perform injections only for the first time the fragment is created
         if(savedInstanceState == null) {
 
-            fragmentComponent = DaggerFragmentComponent.builder().build();
+            fragmentComponent = DaggerFragmentComponent.builder()
+                    .netComponent(getNetComponent())
+                    .build();
 
             fragmentComponent.inject(this);
         }
