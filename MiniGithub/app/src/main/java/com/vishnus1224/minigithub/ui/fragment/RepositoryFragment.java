@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vishnus1224.minigithub.R;
+import com.vishnus1224.minigithub.di.component.DaggerFragmentComponent;
+import com.vishnus1224.minigithub.di.component.FragmentComponent;
 import com.vishnus1224.minigithub.listener.NavigationListener;
 import com.vishnus1224.minigithub.model.Repository;
 import com.vishnus1224.minigithub.ui.adapter.RepositoryListAdapter;
@@ -22,6 +24,8 @@ import com.vishnus1224.minigithub.ui.view.RepositoryView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by Vishnu on 2/6/2016.
@@ -41,11 +45,31 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView, 
 
     private ProgressBar footerProgressBar;
 
-    private RepositoryPresenter presenter = new RepositoryPresenter();
+    @Inject
+    RepositoryPresenter presenter;
 
     private List<Repository> repositoryList = new ArrayList<>();
 
     private NavigationListener navigationListener;
+
+    private FragmentComponent fragmentComponent;
+
+    public RepositoryFragment(){
+        setRetainInstance(true);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //perform injections only for the first time the fragment is created
+        if(savedInstanceState == null) {
+
+            fragmentComponent = DaggerFragmentComponent.builder().build();
+
+            fragmentComponent.inject(this);
+        }
+    }
 
     @Nullable
     @Override
