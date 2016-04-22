@@ -3,6 +3,8 @@ package com.vishnus1224.minigithub.interactor;
 import com.vishnus1224.minigithub.manager.WebServiceManager;
 import com.vishnus1224.minigithub.model.RepositoryContainer;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,6 +24,11 @@ public class RepositoryInteractorImpl implements RepositoryInteractor {
     //Flag for differentiating between normal fetch and loading more.
     //Used for decreasing the page number if an error occurs.
     private boolean loadMore = false;
+
+    @Inject
+    public RepositoryInteractorImpl(){
+
+    }
 
     @Override
     public void fetchRepositories(String repositoryName, RepositoryInteractionListener repositoryInteractionListener) {

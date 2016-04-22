@@ -1,5 +1,6 @@
 package com.vishnus1224.minigithub.ui.presenter;
 
+import com.vishnus1224.minigithub.di.scope.PerFragment;
 import com.vishnus1224.minigithub.interactor.RepositoryInteractor;
 import com.vishnus1224.minigithub.interactor.RepositoryInteractorImpl;
 import com.vishnus1224.minigithub.listener.FetchRepositoriesListener;
@@ -11,15 +12,18 @@ import com.vishnus1224.minigithub.utility.Utils;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Handles operations related to repositories.
  * Created by Vishnu on 2/6/2016.
  */
+@PerFragment
 public class RepositoryPresenter implements Presenter {
 
     private RepositoryView view;
 
-    private RepositoryInteractor repositoryInteractor = new RepositoryInteractorImpl();
+    private RepositoryInteractor repositoryInteractor;
 
     private List<Repository> repositories;
 
@@ -41,6 +45,13 @@ public class RepositoryPresenter implements Presenter {
 
     //listener for getting callback when load more repository call is completed.
     private LoadMoreRepositoriesListener loadMoreRepositoriesListener;
+
+    @Inject
+    public RepositoryPresenter(RepositoryInteractor repositoryInteractor){
+
+        this.repositoryInteractor = repositoryInteractor;
+
+    }
 
 
     public void setRepositories(List<Repository> repositories){
