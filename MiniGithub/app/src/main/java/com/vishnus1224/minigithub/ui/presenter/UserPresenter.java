@@ -1,7 +1,6 @@
 package com.vishnus1224.minigithub.ui.presenter;
 
 import com.vishnus1224.minigithub.interactor.UserInteractor;
-import com.vishnus1224.minigithub.interactor.UserInteractorImpl;
 import com.vishnus1224.minigithub.listener.FetchUsersListener;
 import com.vishnus1224.minigithub.listener.LoadMoreUsersListener;
 import com.vishnus1224.minigithub.model.User;
@@ -10,6 +9,8 @@ import com.vishnus1224.minigithub.ui.view.UserView;
 import com.vishnus1224.minigithub.utility.Utils;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by Vishnu on 2/14/2016.
@@ -33,7 +34,7 @@ public class UserPresenter implements Presenter {
     //Name of the user being searched.
     private String currentUserName;
 
-    private UserInteractor userInteractor = new UserInteractorImpl();
+    private UserInteractor userInteractor;
 
     //listener for getting callback when user fetch is completed.
     private FetchUsersListener fetchUsersListener;
@@ -43,6 +44,11 @@ public class UserPresenter implements Presenter {
 
     public void setUserList(List<User> userList) {
         this.userList = userList;
+    }
+
+    @Inject
+    public UserPresenter(UserInteractor userInteractor){
+        this.userInteractor = userInteractor;
     }
 
     @Override
