@@ -1,5 +1,6 @@
 package com.vishnus1224.minigithub.ui.presenter;
 
+import com.vishnus1224.minigithub.di.scope.PerFragment;
 import com.vishnus1224.minigithub.interactor.IssueInteractor;
 import com.vishnus1224.minigithub.interactor.IssueInteractorImpl;
 import com.vishnus1224.minigithub.listener.FetchIssuesListener;
@@ -11,9 +12,12 @@ import com.vishnus1224.minigithub.utility.Utils;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by Vishnu on 2/13/2016.
  */
+@PerFragment
 public class IssuePresenter implements Presenter {
 
     private IssueView issueView;
@@ -33,7 +37,7 @@ public class IssuePresenter implements Presenter {
     //Name of the issue being searched.
     private String currentIssueName;
 
-    private IssueInteractor issueInteractor = new IssueInteractorImpl();
+    private IssueInteractor issueInteractor;
 
     //listener for getting callback when issue fetch is completed.
     private FetchIssuesListener fetchIssuesListener;
@@ -43,6 +47,11 @@ public class IssuePresenter implements Presenter {
 
     public void setIssueList(List<Issue> issueList) {
         this.issueList = issueList;
+    }
+
+    @Inject
+    public IssuePresenter(IssueInteractor issueInteractor){
+        this.issueInteractor = issueInteractor;
     }
 
     @Override

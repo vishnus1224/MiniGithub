@@ -1,7 +1,9 @@
 package com.vishnus1224.minigithub.interactor;
 
-import com.vishnus1224.minigithub.manager.WebServiceManager;
 import com.vishnus1224.minigithub.model.RepositoryContainer;
+import com.vishnus1224.minigithub.webservice.RestApi;
+
+import javax.inject.Inject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,6 +24,13 @@ public class RepositoryInteractorImpl implements RepositoryInteractor {
     //Flag for differentiating between normal fetch and loading more.
     //Used for decreasing the page number if an error occurs.
     private boolean loadMore = false;
+
+    private RestApi restApi;
+
+    @Inject
+    public RepositoryInteractorImpl(RestApi restApi){
+        this.restApi = restApi;
+    }
 
     @Override
     public void fetchRepositories(String repositoryName, RepositoryInteractionListener repositoryInteractionListener) {
@@ -52,7 +61,7 @@ public class RepositoryInteractorImpl implements RepositoryInteractor {
     private void fetchRepositories(String repositoryName){
 
         //get the webservice and make the fetch repositories call
-        Call<RepositoryContainer> call = WebServiceManager.getWebService().fetchRepositories(repositoryName, pageNumber, RESULTS_PER_PAGE);
+        Call<RepositoryContainer> call = restApi.fetchRepositories(repositoryName, pageNumber, RESULTS_PER_PAGE);
 
         //fetch on a background thread and pass a callback.
         call.enqueue(callback);

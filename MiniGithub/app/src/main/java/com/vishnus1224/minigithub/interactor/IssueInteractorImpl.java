@@ -1,7 +1,9 @@
 package com.vishnus1224.minigithub.interactor;
 
-import com.vishnus1224.minigithub.manager.WebServiceManager;
 import com.vishnus1224.minigithub.model.IssueContainer;
+import com.vishnus1224.minigithub.webservice.RestApi;
+
+import javax.inject.Inject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,6 +24,13 @@ public class IssueInteractorImpl implements IssueInteractor {
     private boolean loadMore = false;
 
     private IssueInteractionListener issueInteractionListener;
+
+    private RestApi restApi;
+
+    @Inject
+    public IssueInteractorImpl(RestApi restApi){
+        this.restApi = restApi;
+    }
 
 
     @Override
@@ -53,7 +62,7 @@ public class IssueInteractorImpl implements IssueInteractor {
     private void searchIssues(String issueName) {
 
         //get the webservice and make the search issues call
-        Call<IssueContainer> call = WebServiceManager.getWebService().searchIssues(issueName, pageNumber, RESULTS_PER_PAGE);
+        Call<IssueContainer> call = restApi.searchIssues(issueName, pageNumber, RESULTS_PER_PAGE);
 
         //fetch on a background thread and pass a callback.
         call.enqueue(callback);
