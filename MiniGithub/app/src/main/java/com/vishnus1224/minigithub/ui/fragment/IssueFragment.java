@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.vishnus1224.minigithub.R;
+import com.vishnus1224.minigithub.di.component.DaggerFragmentComponent;
+import com.vishnus1224.minigithub.di.component.FragmentComponent;
+import com.vishnus1224.minigithub.di.module.FragmentModule;
 import com.vishnus1224.minigithub.listener.ImageLoaderListener;
 import com.vishnus1224.minigithub.listener.NavigationListener;
 import com.vishnus1224.minigithub.model.Issue;
@@ -25,6 +28,8 @@ import com.vishnus1224.minigithub.ui.view.IssueView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by Vishnu on 2/6/2016.
@@ -49,9 +54,31 @@ public class IssueFragment extends BaseFragment implements AdapterView.OnItemCli
 
     private List<Issue> issueList = new ArrayList<>();
 
-    private IssuePresenter issuePresenter = new IssuePresenter();
+    @Inject
+    IssuePresenter issuePresenter;
 
     private NavigationListener navigationListener;
+
+    private FragmentComponent fragmentComponent;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //inject the dependencies the first time fragment is created.
+        if(savedInstanceState == null){
+
+            fragmentComponent = DaggerFragmentComponent.builder()
+                    .fragmentModule(new FragmentModule())
+                    .netComponent(getNetComponent())
+                    .build();
+
+            fragmentComponent.inject(this);
+
+
+        }
+
+    }
 
     @Nullable
     @Override
