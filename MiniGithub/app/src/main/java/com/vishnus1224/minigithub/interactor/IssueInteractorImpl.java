@@ -1,6 +1,5 @@
 package com.vishnus1224.minigithub.interactor;
 
-import com.vishnus1224.minigithub.manager.WebServiceManager;
 import com.vishnus1224.minigithub.model.IssueContainer;
 import com.vishnus1224.minigithub.webservice.RestApi;
 
