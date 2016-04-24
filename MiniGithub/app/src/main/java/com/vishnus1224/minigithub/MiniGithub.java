@@ -32,7 +32,7 @@ public class MiniGithub extends Application {
     private void buildApplicationComponent() {
 
         applicationComponent = DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule())
+                .applicationModule(new ApplicationModule(this))
                 .build();
     }
 
