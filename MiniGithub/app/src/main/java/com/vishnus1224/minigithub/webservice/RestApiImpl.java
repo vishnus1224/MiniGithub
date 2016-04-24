@@ -2,6 +2,7 @@ package com.vishnus1224.minigithub.webservice;
 
 import com.vishnus1224.minigithub.model.IssueContainer;
 import com.vishnus1224.minigithub.model.RepositoryContainer;
+import com.vishnus1224.minigithub.model.UserContainer;
 
 import javax.inject.Inject;
 
@@ -29,5 +30,10 @@ public class RestApiImpl implements RestApi {
     @Override
     public Call<IssueContainer> searchIssues(String issueName, int pageNumber, int resultsPerPage) {
         return githubService.searchIssues(issueName, pageNumber, resultsPerPage);
+    }
+
+    @Override
+    public Call<UserContainer> searchUsers(String username, int pageNumber, int resultsPerPage) {
+        return githubService.searchUsers(username, pageNumber, resultsPerPage);
     }
 }
