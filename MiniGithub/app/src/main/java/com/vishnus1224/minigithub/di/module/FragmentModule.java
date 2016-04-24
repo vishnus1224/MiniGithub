@@ -5,6 +5,8 @@ import com.vishnus1224.minigithub.interactor.IssueInteractor;
 import com.vishnus1224.minigithub.interactor.IssueInteractorImpl;
 import com.vishnus1224.minigithub.interactor.RepositoryInteractor;
 import com.vishnus1224.minigithub.interactor.RepositoryInteractorImpl;
+import com.vishnus1224.minigithub.interactor.UserInteractor;
+import com.vishnus1224.minigithub.interactor.UserInteractorImpl;
 
 import dagger.Module;
 import dagger.Provides;
@@ -23,6 +25,11 @@ public class FragmentModule {
     @Provides @PerFragment
     IssueInteractor provideIssueInteractor(IssueInteractorImpl issueInteractorImpl){
         return issueInteractorImpl;
+    }
+
+    @Provides @PerFragment
+    UserInteractor provideUserInteractor(UserInteractorImpl userInteractorImpl){
+        return userInteractorImpl;
     }
 
 }

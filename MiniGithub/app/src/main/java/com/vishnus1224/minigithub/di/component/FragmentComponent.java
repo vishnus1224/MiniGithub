@@ -4,6 +4,7 @@ import com.vishnus1224.minigithub.di.module.FragmentModule;
 import com.vishnus1224.minigithub.di.scope.PerFragment;
 import com.vishnus1224.minigithub.ui.fragment.IssueFragment;
 import com.vishnus1224.minigithub.ui.fragment.RepositoryFragment;
+import com.vishnus1224.minigithub.ui.fragment.UserFragment;
 
 import dagger.Component;
 
@@ -17,4 +18,6 @@ public interface FragmentComponent {
     void inject(RepositoryFragment repositoryFragment);
 
     void inject(IssueFragment issueFragment);
+
+    void inject(UserFragment userFragment);
 }
