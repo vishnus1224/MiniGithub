@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.vishnus1224.minigithub.R;
 import com.vishnus1224.minigithub.di.component.DaggerFragmentComponent;
 import com.vishnus1224.minigithub.di.component.FragmentComponent;
+import com.vishnus1224.minigithub.di.module.FragmentModule;
 import com.vishnus1224.minigithub.listener.NavigationListener;
 import com.vishnus1224.minigithub.model.Repository;
 import com.vishnus1224.minigithub.ui.adapter.RepositoryListAdapter;
@@ -66,6 +67,7 @@ public class RepositoryFragment extends BaseFragment implements RepositoryView, 
         if(savedInstanceState == null) {
 
             fragmentComponent = DaggerFragmentComponent.builder()
+                    .fragmentModule(new FragmentModule())
                     .netComponent(getNetComponent())
                     .build();
 
