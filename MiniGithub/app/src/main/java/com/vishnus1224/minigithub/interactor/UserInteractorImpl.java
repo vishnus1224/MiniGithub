@@ -1,7 +1,9 @@
 package com.vishnus1224.minigithub.interactor;
 
-import com.vishnus1224.minigithub.manager.WebServiceManager;
 import com.vishnus1224.minigithub.model.UserContainer;
+import com.vishnus1224.minigithub.webservice.RestApi;
+
+import javax.inject.Inject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,6 +24,13 @@ public class UserInteractorImpl implements UserInteractor {
     private boolean loadMore = false;
 
     private UserInteractionListener userInteractionListener;
+
+    private RestApi restApi;
+
+    @Inject
+    public UserInteractorImpl(RestApi restApi){
+        this.restApi = restApi;
+    }
 
 
     @Override
@@ -51,7 +60,7 @@ public class UserInteractorImpl implements UserInteractor {
     private void searchUsers(String username) {
 
         //get the webservice and make the search issues call
-        Call<UserContainer> call = WebServiceManager.getWebService().searchUsers(username, pageNumber, RESULTS_PER_PAGE);
+        Call<UserContainer> call = restApi.searchUsers(username, pageNumber, RESULTS_PER_PAGE);
 
         //fetch on a background thread and pass a callback.
         call.enqueue(callback);
