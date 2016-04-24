@@ -14,7 +14,8 @@ import dagger.Provides;
 public class FragmentModule {
 
     @Provides @PerFragment
-    RepositoryInteractor repositoryInteractor(RepositoryInteractorImpl repositoryInteractorImpl){
+    RepositoryInteractor provideRepositoryInteractor(RepositoryInteractorImpl repositoryInteractorImpl){
         return repositoryInteractorImpl;
     }
+
 }
