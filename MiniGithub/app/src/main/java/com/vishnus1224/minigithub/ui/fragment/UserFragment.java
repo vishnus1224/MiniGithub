@@ -15,6 +15,9 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.vishnus1224.minigithub.R;
+import com.vishnus1224.minigithub.di.component.DaggerFragmentComponent;
+import com.vishnus1224.minigithub.di.component.FragmentComponent;
+import com.vishnus1224.minigithub.di.module.FragmentModule;
 import com.vishnus1224.minigithub.listener.ImageLoaderListener;
 import com.vishnus1224.minigithub.listener.NavigationListener;
 import com.vishnus1224.minigithub.model.User;
@@ -24,6 +27,8 @@ import com.vishnus1224.minigithub.ui.view.UserView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by Vishnu on 2/6/2016.
@@ -46,11 +51,30 @@ public class UserFragment extends BaseFragment implements UserView, ImageLoaderL
 
     private ProgressBar footerProgressBar;
 
-    private UserPresenter userPresenter = new UserPresenter();
+    @Inject
+    UserPresenter userPresenter;
+
+    private FragmentComponent fragmentComponent;
 
     private List<User> userList = new ArrayList<>();
 
     private NavigationListener navigationListener;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if(savedInstanceState == null){
+
+            fragmentComponent = DaggerFragmentComponent.builder()
+                    .fragmentModule(new FragmentModule())
+                    .netComponent(getNetComponent())
+                    .build();
+
+            fragmentComponent.inject(this);
+
+        }
+    }
 
     @Nullable
     @Override
